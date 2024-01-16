@@ -4,25 +4,20 @@ import TestimonialCard from './TestimonialCard';
 
 const testimonialData = [
     {
-      companyName: "Webflow",
-      desc: `"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."`,
-      img: "/user-1.png",
-      name: "Elliot John",
-      designation: "Marketing Executive",
+      companyName: "School of Code",
+      desc: `"I worked with Danny on the School of Code Bootcamp. I want to commend him for his dedication to finding solutions. Danny was a real team player and actively worked hard to explain concepts to others and help them with their professional development. I thoroughly enjoyed working in a team with him and believe he would be an asset to any tech team!"`,
+      img: "/Anna-Martins-profile.jpg",
+      name: "Anna Martins",
+      designation: "Felllow Bootcamper",
     },
     {
-      companyName: "Facebook",
-      desc: `"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum."`,
-      img: "/user-2.png",
-      name: "John Adam",
-      designation: "Senior Engineering Manager",
-    },
-    {
-      companyName: "Google",
-      desc: `"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."`,
-      img: "/user-3.png",
-      name: "Adam Smith",
-      designation: "Engineering Manager",
+      companyName: "School of Code",
+      desc: `"I have had the pleasure working on a project with Danny at the SOC. Our week collaborating on a project centred around databases was truly one of my favourites. Danny's guidance and mentorship had a profound impact on my learning journey, consistently urging me to challenge myself and step out of my comfort zone.
+      Danny's encouragement and insights created an environment that fostered growth and exploration. His mentorship style not only facilitated a successful project but also inspired me to approach challenges with confidence. I'm grateful for the knowledge and skills I gained during this collaboration.
+      Thank you, Danny, for a fantastic week of learning and pushing boundaries together!"`,
+      img: "/Alexandra-Nasonova-profile.jpg",
+      name: "Alexandra Nasonova",
+      designation: "Fellow Bootcamper",
     },
   ];
 
@@ -30,7 +25,7 @@ const Testimonials = () => {
   return (
     <div className="contiainer pt-32">
       <Heading title="Testimonials"/>
-      <div className="grid md:grid-cols-2  lg:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-2  lg:grid-cols-2 gap-8">
         {testimonialData.map((item, index) => (
             <TestimonialCard
                 key={index}
