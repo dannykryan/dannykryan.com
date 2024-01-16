@@ -9,9 +9,9 @@ const Hero = () => {
             <div className="hidden lg:block"></div>    
             <div className="text-[100px] sm:text-[130px] font-bold leading-tight flex justify-center items-center">
                 <div>
-                    <p>I&apos;m</p>
-                    <p>Danny</p>
-                    <p>Ryan</p>
+                    <p data-aos="zoom-in-up">I&apos;m</p>
+                    <p data-aos="zoom-in-up">Danny</p>
+                    <p data-aos="zoom-in-up">Ryan</p>
                 </div>
             </div>
         </div>
