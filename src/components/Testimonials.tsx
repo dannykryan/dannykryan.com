@@ -12,9 +12,8 @@ const testimonialData = [
     },
     {
       companyName: "School of Code",
-      desc: `"I have had the pleasure working on a project with Danny at the SOC. Our week collaborating on a project centred around databases was truly one of my favourites. Danny's guidance and mentorship had a profound impact on my learning journey, consistently urging me to challenge myself and step out of my comfort zone.
-      Danny's encouragement and insights created an environment that fostered growth and exploration. His mentorship style not only facilitated a successful project but also inspired me to approach challenges with confidence. I'm grateful for the knowledge and skills I gained during this collaboration.
-      Thank you, Danny, for a fantastic week of learning and pushing boundaries together!"`,
+      desc: `"Danny's guidance and mentorship had a profound impact on my learning journey, consistently urging me to challenge myself and step out of my comfort zone.
+      Danny's encouragement and insights created an environment that fostered growth and exploration. His mentorship style not only facilitated a successful project but also inspired me to approach challenges with confidence. I'm grateful for the knowledge and skills I gained during this collaboration."`,
       img: "/Alexandra-Nasonova-profile.jpg",
       name: "Alexandra Nasonova",
       designation: "Fellow Bootcamper",
@@ -23,7 +22,7 @@ const testimonialData = [
 
 const Testimonials = () => {
   return (
-    <div className="contiainer pt-32">
+    <div id="testimonials" className="contiainer pt-32">
       <Heading title="Testimonials"/>
       <div className="grid md:grid-cols-2  lg:grid-cols-2 gap-8">
         {testimonialData.map((item, index) => (
