@@ -12,7 +12,7 @@ const Skills = () => {
         </div>
 
         <div>
-            <div className="grid grid-cols-2 text-accent text-3xl sm:text-4xl">
+            <div className="grid grid-cols-2 text-accent text-3xl sm:text-4xl md:text-3xl xl:text-5xl">
                 <div className="space-y-2">
                     <h2 data-aos="zoom-in-up">CSS</h2>
                     <h2 data-aos="zoom-in-up">HTML</h2>
