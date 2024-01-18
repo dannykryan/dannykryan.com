@@ -9,11 +9,11 @@ const Contact = () => {
         <div className="space-y-8">
             <h2 className="text-5xl" data-aos="zoom-in-up">Get in touch</h2>
             <p className="text-gray-600 text-[18px] pt-2" data-aos="zoom-in-up">
-                Drop me a message if you have any questions or just want to say hi and I&apos;ll get back to you as soon as I can!
+                Drop me a message if you have any questions or just want to say hi and I&apos;ll get back to you as soon as I can.
             </p>
 
             <div className="flex gap-3 items-center" data-aos="zoom-in-up">
-                <AiOutlineMail size={30} /> dannykryan@gmail.com
+                <AiOutlineMail size={30} /> <a className="underline" href="mailto:dannykryan@gmail.com">dannykryan@gmail.com</a>
             </div>
 
             <div className="flex gap-3 items-center" data-aos="zoom-in-up">
