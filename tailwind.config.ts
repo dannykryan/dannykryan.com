@@ -13,7 +13,7 @@ const config: Config = {
         padding: "15px"
       },
       colors: {
-        accent: "#08E95E",
+        accent: "#EA744C",
       },
     },
   },
