@@ -7,7 +7,7 @@ const Skills = () => {
         <div data-aos="zoom-in-up">
             <h2 className="text-4xl md:text-5xl">Technologies I work with</h2>
             <p className="text-gray-500 pt-2">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae illo sint obcaecati vel distinctio animi rerum autem quibusdam libero? Possimus, fugiat? Laborum molestias unde fuga nobis obcaecati, doloremque nihil beatae.
+            I have experience with a variety of technologies and tools for web development. Here are some of the key ones:
             </p>
         </div>
 

@@ -30,7 +30,7 @@ const data = [
     {
       id: 3,
       title: "Weather App",
-      desc: "A simple and cute weather app that uses APIs to get the weather of any city or town in the world and updates images based on the weather and time of day.",
+      desc: "A weather app that uses APIs to get the weather of any city or town in the world and updates images based on the weather and time of day.",
       img: "/weather-app-bg.png",
       tags: ["HTML", "CSS", "JS", "API"],
       link: "https://github.com/dannykryan/soc3-weatherApp"
