@@ -22,7 +22,7 @@ const data = [
     {
       id: 2,
       title: "Rise Therapies Website",
-      desc: "A React & Node Based website to help you find what dishes you can make if u have certain ingredients",
+      desc: "A vanilla HTML and CSS website for Rise Maternity Therapies. As well as creating ther website, I designed the logo and branding for the busienss.",
       img: "/rise-therapies-bg.png",
       tags: ["HTML", "CSS"],
       link: "https://rise-therapies.co.uk/",
