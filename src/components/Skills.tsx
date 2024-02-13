@@ -20,6 +20,7 @@ const Skills = () => {
                     <h2 data-aos="zoom-in-up">Node.js</h2>
                 </div>
                 <div className="space-y-2">
+                    <h2 data-aos="zoom-in-up">Typescript</h2>
                     <h2 data-aos="zoom-in-up">React</h2>
                     <h2 data-aos="zoom-in-up">Next.js</h2>
                     <h2 data-aos="zoom-in-up">Supabase</h2>
