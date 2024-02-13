@@ -7,7 +7,7 @@ const Skills = () => {
         <div data-aos="zoom-in-up">
             <h2 className="text-4xl md:text-5xl">Technologies I work with</h2>
             <p className="text-gray-500 pt-2">
-            I have experience with a variety of technologies and tools for web development. Here are some of the key ones:
+            As a junior developer, I am always learning new technologies and keen to find new ways to improve the websites and applications that I build. I currently have experience with a variety of technologies and tools for web development. Here are some of the key ones:
             </p>
         </div>
 
@@ -17,11 +17,11 @@ const Skills = () => {
                     <h2 data-aos="zoom-in-up">CSS</h2>
                     <h2 data-aos="zoom-in-up">HTML</h2>
                     <h2 data-aos="zoom-in-up">Javascript</h2>
-                    <h2 data-aos="zoom-in-up">Next.js</h2>
+                    <h2 data-aos="zoom-in-up">Node.js</h2>
                 </div>
                 <div className="space-y-2">
-                    <h2 data-aos="zoom-in-up">React.js</h2>
-                    <h2 data-aos="zoom-in-up">Tailwind</h2>
+                    <h2 data-aos="zoom-in-up">React</h2>
+                    <h2 data-aos="zoom-in-up">Next.js</h2>
                     <h2 data-aos="zoom-in-up">Supabase</h2>
                 </div>
             </div>
