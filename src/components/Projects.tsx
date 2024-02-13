@@ -14,7 +14,7 @@ const data = [
     {
       id: 1,
       title: "Study Buddy",
-      desc: "A web app built with vanilla HTML, CSS and JS for students to share resources with individual user accounts",
+      desc: "A web app built with vanilla HTML, CSS and JS for students to share resources with individual user accounts.",
       img: "/studybuddy-bg.png",
       tags: ["HTML", "CSS", "JS", "SQL"],
       link: "https://study-buddy-9en0.onrender.com/",
@@ -22,7 +22,7 @@ const data = [
     {
       id: 2,
       title: "Rise Therapies Website",
-      desc: "A vanilla HTML and CSS website for Rise Maternity Therapies. As well as creating ther website, I designed the logo and branding for the busienss.",
+      desc: "A vanilla HTML and CSS website for Rise Maternity Therapies that included logo and branding design.",
       img: "/rise-therapies-bg.png",
       tags: ["HTML", "CSS"],
       link: "https://rise-therapies.co.uk/",
