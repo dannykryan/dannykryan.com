@@ -41,11 +41,11 @@ const Projects = () => {
   return (
     <div id="projects" className="container">
       <Heading title="My Projects"/>
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="flex flex-wrap justify-center gap-4 xl:gap-8">
         {projectData.map((el) => (
           <div 
             key={el.id} 
-            className="w-full max-w-sm flex-shrink-0"
+            className="w-full max-w-xs flex-shrink-0"
           >
             <Card 
               title={el.title}

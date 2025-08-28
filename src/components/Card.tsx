@@ -13,7 +13,7 @@ interface propsType {
 const Card:React.FC<propsType> = ({ title, desc, img, tags, link }) => {
   return (
     <div 
-      className="rounded-t-3xl overflow-hidden w-full h-full flex flex-col transition-all duration-300 hover:shadow-lg hover:cursor-pointer dark:hover:shadow-gray-800 group" 
+      className="rounded-t-3xl overflow-hidden w-full h-full flex flex-col transition-all duration-300 hover:cursor-pointer dark:hover:shadow-gray-800 group" 
     >
       <div className="overflow-hidden">
         <Link href={link}>

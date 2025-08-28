@@ -1,17 +1,24 @@
 "use client"
-import React from 'react'
-import { AiOutlineMenu } from 'react-icons/ai';
+import React, { useState } from 'react'
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Link from 'next/link';
 import { useTheme } from './ThemeProvider';
 
 const Navbar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full z-50 bg-offWhite dark:bg-charcoal border-b border-[#8d8d8d]">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <div className="flex justify-between items-center">
-          <div className="text-xl font-medium">Danny Ryan</div>
+        <div className="flex justify-between items-center pb-4">
+          <Link href="/" className="hover:text-orange dark:hover:text-green transition-colors duration-200">
+            <div className="text-xl font-bold">dannykryan.com</div>
+          </Link>
           <div className="flex items-center gap-4">
             <ul className="gap-10 lg:gap-8 hidden md:flex">
               <Link href="#hero"><li className="menuLink">Home</li></Link>
@@ -64,8 +71,33 @@ const Navbar = () => {
               )}
             </button>
           </div>
-          <AiOutlineMenu className="md:hidden" size={30} />
+          <button 
+            onClick={toggleMenu} 
+            className="md:hidden hover:text-orange dark:hover:text-green transition-colors"
+          >
+            {isMenuOpen ? (
+              <AiOutlineClose size={30} />
+            ) : (
+              <AiOutlineMenu size={30} />
+            )}
+          </button>
         </div>
+        
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div 
+            className={`md:hidden bg-charcoalLight dark:bg-charcoal rounded-lg px-4 
+                        transition-all duration-400 ease-in-out overflow-hidden
+                        ${isMenuOpen ? "max-h-64 opacity-100 py-4 mb-4" : "max-h-0 opacity-0 py-0 mb-0"}`}
+          >
+            <ul className="flex flex-col gap-4">
+              <Link href="#hero" onClick={toggleMenu}><li className="menuLink">Home</li></Link>
+              <Link href="#projects" onClick={toggleMenu}><li className="menuLink">Projects</li></Link>
+              <Link href="#skills" onClick={toggleMenu}><li className="menuLink">Skills</li></Link>
+              <Link href="#testimonials" onClick={toggleMenu}><li className="menuLink">Testimonials</li></Link>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

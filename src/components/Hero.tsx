@@ -14,21 +14,34 @@ const Hero = () => {
             alt="Alien Danny"
             fill
             priority
-            className="object-cover lg:object-top"
+            className="object-cover"
+            style={{ objectPosition: '50% 15%' }}
           />
         </div>
-        <div className="flex justify-center items-center text-center lg:text-left lg:pl-10">
+        <div className="flex justify-center lg:justify-start items-center text-center lg:text-left lg:pl-10">
           <div>
             <p
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
+              className="text-4xl md:text-5xl font-bold leading-tight"
             >
               Hello, I&apos;m Danny!
             </p>
-            <br />
-            <p className="mt-15">
-              I’m a developer with experience building sites and applications in WordPress, React, Tailwind CSS, and API integrations for clients form a variety of different sectors.
+            <p className="mt-4 mb-6">
+              I'm a developer with experience building sites and applications in WordPress, React, Tailwind CSS, and API integrations for clients form a variety of different sectors.
             </p>
-
+            
+            <div className="mt-2 flex justify-center lg:justify-start gap-4">
+              <a href="#contact" className="button-primary inline-block">
+                Get in Touch
+              </a>
+              <a 
+                href="/danny-ryan-cv.pdf" 
+                className="button-secondary inline-block"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View CV
+              </a>
+            </div>
           </div>
         </div>
       </div>
