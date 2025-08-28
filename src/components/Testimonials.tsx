@@ -9,7 +9,7 @@ const testimonialData = [
       img: "/Bruno-profile.jpg",
       name: "Bruno Seguin",
       designation: "Communication Manager",
-      Linkedin: "https://www.linkedin.com/in/bruno-seguin/"
+      linkedin: "https://www.linkedin.com/in/bruno-seguin/"
     },
     {
       companyName: "School of Code",
@@ -17,7 +17,7 @@ const testimonialData = [
       img: "/Anna-Martins-profile.jpg",
       name: "Anna Martins",
       designation: "Fellow Bootcamper",
-      Linkedin: "https://www.linkedin.com/in/anna-martins-6b1707261/"
+      linkedin: "https://www.linkedin.com/in/anna-martins-6b1707261/"
     },
     {
       companyName: "School of Code",
@@ -26,7 +26,7 @@ const testimonialData = [
       img: "/Alexandra-Nasonova-profile.jpg",
       name: "Alexandra Nasonova",
       designation: "Fellow Bootcamper",
-      Linkedin: "https://www.linkedin.com/in/alexandra-n-b4397013b/"
+      linkedin: "https://www.linkedin.com/in/alexandra-n-b4397013b/"
     },
   ];
 
@@ -43,7 +43,7 @@ const Testimonials = () => {
             img={item.img}
             name={item.name}
             designation={item.designation}
-            Linkedin={item.Linkedin}
+            linkedin={item.linkedin}
           />
         ))}
       </div>

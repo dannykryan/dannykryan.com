@@ -85,11 +85,7 @@ const Navbar = () => {
         
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div 
-            className={`md:hidden bg-charcoalLight dark:bg-charcoal rounded-lg px-4 
-                        transition-all duration-400 ease-in-out overflow-hidden
-                        ${isMenuOpen ? "max-h-64 opacity-100 py-4 mb-4" : "max-h-0 opacity-0 py-0 mb-0"}`}
-          >
+          <div className="md:hidden bg-charcoalLight dark:bg-charcoal rounded-lg px-4 py-4 mb-4">
             <ul className="flex flex-col gap-4">
               <Link href="#hero" onClick={toggleMenu}><li className="menuLink">Home</li></Link>
               <Link href="#projects" onClick={toggleMenu}><li className="menuLink">Projects</li></Link>

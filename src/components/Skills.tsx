@@ -18,7 +18,7 @@ const Skills = () => {
             <div className="space-y-2">
               <h2>CSS</h2>
               <h2>HTML</h2>
-              <h2>Javascript</h2>
+              <h2>JavaScript</h2>
               <h2>Node.js</h2>
             </div>
             <div className="space-y-2">
