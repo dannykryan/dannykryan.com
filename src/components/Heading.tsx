@@ -7,7 +7,7 @@ interface propsType {
 const Heading: React.FC<propsType> = ({title}) => {
   return (
     <div className="text-center text-4xl pb-8">
-      <p className="border-b-4 border-[#EA744C] border-custom inline-block pb-2">{title}</p>
+      <p className="border-b-2 border-orange dark:border-green border-custom inline-block pb-2">{title}</p>
     </div>
   )
 }

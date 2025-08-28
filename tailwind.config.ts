@@ -6,14 +6,18 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
-      container: {
-        center: true,
-        padding: "15px"
-      },
       colors: {
-        accent: "#EA744C",
+        orange: "#d64c2d",
+        orangeLight: "#ed9682",
+        green: "#2db777",
+        greenLight: "#6fe8b0",
+        charcoal: "#111",
+        charcoalMid: "#2b2b2b",
+        offWhite: "#CCCCCC",
+        offWhiteLight: "#E5E5E5",
       },
     },
   },

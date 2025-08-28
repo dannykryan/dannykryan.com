@@ -1,35 +1,34 @@
 import React from 'react'
-import Navbar from './Navbar'
+import Image from 'next/image'
+import { useTheme } from './ThemeProvider'
+
 
 const Hero = () => {
+  const { isDarkMode } = useTheme();
   return (
-    <div>
-      <Navbar />
-      <div id="hero" className="container grid lg:grid-cols-2 h-[calc(100vh-60px)] display:flex flex-direction:justify-copntent lg:mb-4rem">
-        <div
-          className="rounded-full h-[300px] w-[300px] lg:h-[500px] xl:w-[500px] bg-cover bg-center overflow-hidden ml-auto mr-auto mt-auto mb-auto"
-          style={{
-            backgroundImage: "url(/colourful-bg-danny.png)",
-            maxHeight: "700px",
-          }}
-        ></div>
-        <div className="flex justify-center items-center">
+    <div className="pt-36 lg:pt-12 pb-12 lg:pb-0">
+      <div id="hero" className="grid lg:grid-cols-2 gap-4 lg:h-[calc(100vh-400px)] display:flex flex-direction:justify-copntent lg:py-4rem">
+        <div className="relative w-full h-[300px] md:h-[400px] my-auto rounded-3xl overflow-hidden"> 
+          <Image
+            src={isDarkMode ? "/alien-danny-dark-green.png" : "/alien-danny-light-orange.png"}
+            alt="Alien Danny"
+            fill
+            priority
+            className="object-cover lg:object-top"
+          />
+        </div>
+        <div className="flex justify-center items-center text-center lg:text-left lg:pl-10">
           <div>
             <p
-              data-aos="zoom-in-up"
-              className="text-[100px] lg:text-[130px] md:text-[70px] sm:text-[50px] xs:text-[30px] font-bold leading-tight"
-              style={{ fontSize: 'clamp(30px, 5vw, 130px)' }} // Responsive font size
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
             >
-              Hello! I&apos;m Danny...
+              Hello, I&apos;m Danny!
             </p>
             <br />
             <p className="mt-15">
-              A junior dev who loves design based in Birmingham, UK. I love to make things that bring a smile to people&apos;s faces.
+              I’m a developer with experience building sites and applications in WordPress, React, Tailwind CSS, and API integrations for clients form a variety of different sectors.
             </p>
-            <br />
-            <p>
-              As well as programming, I&apos;ve got skills in design, photography, video and audio production, and lots more gained from 5 years working in Communications and Marketing.
-            </p>
+
           </div>
         </div>
       </div>

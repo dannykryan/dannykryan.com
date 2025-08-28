@@ -7,6 +7,7 @@ interface propsType {
     img: string;
     name: string;
     designation: string;
+    Linkedin: string;
 }
 
 const TestimonialCard: React.FC<propsType> = ({
@@ -15,26 +16,26 @@ const TestimonialCard: React.FC<propsType> = ({
     img,
     name,
     designation,
+    Linkedin
 }) => {
   return (
-    <div data-aos="zoom-in-up" className="p-4 md:p-8"> {/* Added padding for smaller screens */}
-        <div className="border border-accent p-4 md:p-8 h-full flex flex-col justify-between"> {/* Adjusted padding */}
-            <h2 className="text-3xl text-accent">{companyName}</h2>
-            <p className="overflow-auto md:overflow-visible">{desc}</p> {/* Added overflow handling */}
-            <div className="flex gap-4 items-center"> {/* Adjusted alignment */}
+    <div className="bg-offWhiteLight dark:bg-offWhite text-charcoal min-w-[300px] border rounded-3xl p-4 md:p-8 h-full flex flex-col justify-between">
+        <p className="overflow-auto md:overflow-visible">{desc}</p>
+        <a href={Linkedin} className="hover:cursor-pointer">
+            <div className="flex gap-4 items-center pt-4 group">
                 <Image 
-                    className="grayscale rounded-full"
+                    className="grayscale rounded-full group-hover:grayscale-0"
                     src={img}
                     height={50}
                     width={50}
                     alt="user"
                 />
                 <div>
-                    <h2>{name}</h2>
-                    <p className="text-gray-500">{designation}</p>
+                    <h2 className="font-bold">{name}</h2>
+                    <p className="text-charcoalMid">{designation}, {companyName}</p>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
   )
 }

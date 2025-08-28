@@ -2,16 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    color: #131313;
-    background-color: #F4EBDA;
-  }
-}
-
 @layer components {
   .menuLink {
-    @apply cursor-pointer hover:text-[#c5c5c5];
+    @apply cursor-pointer hover:text-white;
   }
 
   .tags {
@@ -51,4 +44,17 @@
   .tags:nth-child(7) {
     background-color: #db9f1e;
   }
+}
+
+button.navbar-button {
+    align-items: center;
+    background: transparent;
+    border: 1px solid transparent;
+    box-shadow: none;
+    color: var(--color-text-navbar-link);
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: .5rem;
+    width: 40px;
 }

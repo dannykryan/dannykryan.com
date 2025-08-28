@@ -9,13 +9,15 @@ const testimonialData = [
       img: "/Bruno-profile.jpg",
       name: "Bruno Seguin",
       designation: "Communication Manager",
+      Linkedin: "https://www.linkedin.com/in/bruno-seguin/"
     },
     {
       companyName: "School of Code",
       desc: `"I worked with Danny on the School of Code Bootcamp. I want to commend him for his dedication to finding solutions. Danny was a real team player and actively worked hard to explain concepts to others and help them with their professional development. I thoroughly enjoyed working in a team with him and believe he would be an asset to any tech team!"`,
       img: "/Anna-Martins-profile.jpg",
       name: "Anna Martins",
-      designation: "Felllow Bootcamper",
+      designation: "Fellow Bootcamper",
+      Linkedin: "https://www.linkedin.com/in/anna-martins-6b1707261/"
     },
     {
       companyName: "School of Code",
@@ -24,23 +26,25 @@ const testimonialData = [
       img: "/Alexandra-Nasonova-profile.jpg",
       name: "Alexandra Nasonova",
       designation: "Fellow Bootcamper",
+      Linkedin: "https://www.linkedin.com/in/alexandra-n-b4397013b/"
     },
   ];
 
 const Testimonials = () => {
   return (
-    <div id="testimonials" className="contiainer pt-32">
+    <div id="testimonials" className="container pt-32">
       <Heading title="Testimonials"/>
-      <div className="grid md:grid-cols-2  lg:grid-cols-3 gap-8">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {testimonialData.map((item, index) => (
-            <TestimonialCard
-                key={index}
-                companyName={item.companyName}
-                desc={item.desc}
-                img={item.img}
-                name={item.name}
-                designation={item.designation}
-            />
+          <TestimonialCard
+            key={index}
+            companyName={item.companyName}
+            desc={item.desc}
+            img={item.img}
+            name={item.name}
+            designation={item.designation}
+            Linkedin={item.Linkedin}
+          />
         ))}
       </div>
     </div>
