@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    overscroll-behavior-y: contain;
+  }
+}
+
 @layer components {
   .menuLink {
     @apply cursor-pointer hover:text-orange dark:hover:text-green;

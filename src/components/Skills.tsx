@@ -2,13 +2,13 @@ import React from 'react'
 
 const Skills = () => {
   return (
-    <div id="skills" className="container pt-32">
+    <div id="skills" className="container pt-16">
       <div className="grid md:grid-cols-2 gap-20 items-center">
         <div>
-          <h2 className="text-4xl md:text-5xl">
+          <h3 className="text-3xl font-bold">
             Technologies I work with:
-          </h2>
-          <p className="text-gray-500 pt-2">
+          </h3>
+          <p className="text-charcoalLight pt-2">
             As a junior developer, I am always learning new technologies and keen to find new ways to improve the websites and applications that I build. I currently have experience with a variety of technologies and tools for web development. Here are some of the key ones:
           </p>
         </div>
