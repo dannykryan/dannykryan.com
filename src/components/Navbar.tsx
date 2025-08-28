@@ -34,6 +34,7 @@ const Navbar = () => {
                   strokeWidth="2" 
                   strokeLinecap="round" 
                   strokeLinejoin="round"
+                  className="navbar-button-icon"
                 >
                   <circle cx="12" cy="12" r="4"></circle>
                   <path d="M12 2v2"></path>
@@ -56,6 +57,7 @@ const Navbar = () => {
                   strokeWidth="2" 
                   strokeLinecap="round" 
                   strokeLinejoin="round"
+                  className="navbar-button-icon"
                 >
                   <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                 </svg>
