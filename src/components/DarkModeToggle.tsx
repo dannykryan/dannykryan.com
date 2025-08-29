@@ -17,6 +17,7 @@ const DarkModeToggle = ({
 
   return (
     <button
+        aria-label="toggle dark mode"
         onClick={toggleDarkMode}
         className="navbar-button hidden"
     >

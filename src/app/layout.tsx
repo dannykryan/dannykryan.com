@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} text-charcoal bg-offWhite dark:text-offWhite dark:bg-charcoal`}>
+      <body className={`${inter.className}`}>
         <ThemeProvider>
           <SmoothScroll />
           <Navbar />

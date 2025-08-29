@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 bg-offWhite dark:bg-charcoal border-b-2 border-orange dark:border-greenDark">
+    <div className="fixed top-0 left-0 w-full z-50 border-b-2 border-orange dark:border-greenDark">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="flex justify-between items-center pb-4">
           <Link href="/" className="hover:text-orange dark:hover:text-green transition-colors duration-200">
@@ -21,29 +21,38 @@ const Navbar = () => {
           </Link>
           <div className="hidden md:flex items-center gap-4">
             <ul className="flex gap-10 lg:gap-8">
-              <Link href="#hero"><li className="menuLink">Home</li></Link>
-              <Link href="#projects"><li className="menuLink">Projects</li></Link>
-              <Link href="#skills"><li className="menuLink">Skills</li></Link>
-              <Link href="#testimonials"><li className="menuLink">Testimonials</li></Link>
+              <li><Link href="#hero" className="menuLink">Home</Link></li>
+              <li><Link href="#projects" className="menuLink">Projects</Link></li>
+              <li><Link href="#skills" className="menuLink">Skills</Link></li>
+              <li><Link href="#testimonials" className="menuLink">Testimonials</Link></li>
             </ul>
             <DarkModeToggle />
             <Link 
+              aria-label="Visit Danny's Github page"
               href="https://github.com/dannykryan" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="navbar-button"
             >
-              <AiOutlineGithub size={"24px"} className="navbar-button-icon"/>
+              <AiOutlineGithub 
+                size={"24px"} 
+                className="navbar-button-icon"
+              />
             </Link>
           </div>
           <button 
+            aria-label='toggle mobile navigation menu'
             onClick={toggleMenu} 
             className="md:hidden hover:text-orange dark:hover:text-green transition-colors duration-200"
           >
             {isMenuOpen ? (
-              <AiOutlineClose size={30} />
+              <AiOutlineClose 
+                size={30}
+              />
             ) : (
-              <AiOutlineMenu size={30} />
+              <AiOutlineMenu 
+                size={30}
+              />
             )}
           </button>
         </div>
@@ -52,10 +61,10 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="flex flex-col gap-4 items-end md:hidden bg-charcoalLight dark:bg-charcoal rounded-lg px-4 py-4 mb-4">
             <ul className="flex flex-col gap-4 text-right">
-              <Link href="#hero" onClick={toggleMenu}><li className="menuLink">Home</li></Link>
-              <Link href="#projects" onClick={toggleMenu}><li className="menuLink">Projects</li></Link>
-              <Link href="#skills" onClick={toggleMenu}><li className="menuLink">Skills</li></Link>
-              <Link href="#testimonials" onClick={toggleMenu}><li className="menuLink">Testimonials</li></Link>
+              <li><Link href="#hero" onClick={toggleMenu} className="menuLink">Home</Link></li>
+              <li><Link href="#projects" onClick={toggleMenu} className="menuLink">Projects</Link></li>
+              <li><Link href="#skills" onClick={toggleMenu} className="menuLink">Skills</Link></li>
+              <li><Link href="#testimonials" onClick={toggleMenu} className="menuLink">Testimonials</Link></li>
             </ul>
             <div className="flex gap-2 items-center">
               <DarkModeToggle padding={"p-0"}/>

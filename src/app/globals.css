@@ -8,6 +8,9 @@
     scroll-padding-top: 80px;
     overscroll-behavior-y: contain;
   }
+  body {
+    @apply bg-offWhiteLight dark:bg-charcoal text-charcoal dark:text-offWhiteLight;
+  }
 }
 
 @layer components {
