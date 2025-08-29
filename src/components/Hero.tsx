@@ -29,7 +29,7 @@ const Hero = () => {
             <p className="mt-4 mb-2">
               I&apos;m a developer with experience building sites and applications in WordPress, React, Tailwind CSS, and API integrations for clients from a variety of different sectors.
             </p>
-            <p className="mb-6">I'm always working on something new so please check out my code at <a href="http://www.github.com/dannykryan" className="underline hover:text-orange dark:hover:text-green transition-colors duration-200">Github</a>.</p>
+            <p className="mb-6">I&apos;m always working on something new so please check out my code at <a href="http://www.github.com/dannykryan" className="underline hover:text-orange dark:hover:text-green transition-colors duration-200">Github</a>.</p>
             
             <div className="mt-2 flex justify-center lg:justify-start gap-4">
               <a href="#contact" className="button-primary inline-block">
