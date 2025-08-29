@@ -1,6 +1,6 @@
 # My Profile Website
 
-[![website-header](/public/website-header.png)](https://youtu.be/zV7LkxL58pU)
+[![website-header](/public/dannykryan-screenshot.png)](https://youtu.be/zV7LkxL58pU)
 
 Visit: [www.dannykryan.com](https://www.dannykryan.com/)
 
