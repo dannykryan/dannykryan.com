@@ -8,16 +8,31 @@ const Hero = () => {
   return (
     <div className="pt-12 mt-[88px] lg:pt-0 pb-16 lg:pb-0">
       <div id="hero" className="grid lg:grid-cols-2 gap-8 lg:gap-4 lg:h-[calc(100vh-400px)] display:flex flex-direction:justify-content lg:py-4rem">
-        <div className="relative w-full h-[300px] md:h-[400px] my-auto rounded-3xl overflow-hidden"> 
-          <Image
-            src={isDarkMode ? "/alien-danny-dark-green.png" : "/alien-danny-light-orange.png"}
-            alt="Alien Danny"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
-            style={{ objectPosition: '50% 15%' }}
-          />
+        <div className="relative w-full h-[300px] md:h-[400px] my-auto rounded-3xl overflow-hidden">
+          <div className="relative w-full h-full">
+            <Image
+              src="/alien-danny-dark-green.png"
+              alt="Alien Danny (Dark Mode)"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className={`object-cover transition-opacity duration-500 absolute top-0 left-0 ${
+                isDarkMode ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{ objectPosition: '50% 15%' }}
+            />
+            <Image
+              src="/alien-danny-light-orange.png"
+              alt="Alien Danny (Light Mode)" 
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className={`object-cover transition-opacity duration-500 absolute top-0 left-0 ${
+                isDarkMode ? 'opacity-0' : 'opacity-100'
+              }`}
+              style={{ objectPosition: '50% 15%' }}
+            />
+          </div>
         </div>
         <div className="flex justify-center lg:justify-start items-center text-center lg:text-left lg:pl-10">
           <div>
