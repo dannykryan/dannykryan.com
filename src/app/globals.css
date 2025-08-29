@@ -15,11 +15,11 @@
     @apply cursor-pointer hover:text-orange dark:hover:text-green transition-colors duration-200;
   }
 
-  .navbar-button {
-    @apply transition-all duration-300;
+  .navbar-button-icon {
+    @apply transition-colors duration-300;
   }
 
-  .navbar-button-icon:hover {
+  .navbar-button:hover .navbar-button-icon {
     @apply text-orange dark:text-green;
   }
 }
@@ -32,7 +32,6 @@ button.navbar-button {
     display: flex;
     height: 40px;
     justify-content: center;
-    padding: .5rem;
     width: 40px;
 }
 

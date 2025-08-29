@@ -6,14 +6,15 @@ import { useTheme } from './ThemeProvider'
 const Hero = () => {
   const { isDarkMode } = useTheme();
   return (
-    <div className="pt-36 lg:pt-12 pb-12 lg:pb-0">
-      <div id="hero" className="grid lg:grid-cols-2 gap-4 lg:h-[calc(100vh-400px)] display:flex flex-direction:justify-content lg:py-4rem">
+    <div className="pt-12 mt-[88px] lg:pt-0 pb-16 lg:pb-0">
+      <div id="hero" className="grid lg:grid-cols-2 gap-8 lg:gap-4 lg:h-[calc(100vh-400px)] display:flex flex-direction:justify-content lg:py-4rem">
         <div className="relative w-full h-[300px] md:h-[400px] my-auto rounded-3xl overflow-hidden"> 
           <Image
             src={isDarkMode ? "/alien-danny-dark-green.png" : "/alien-danny-light-orange.png"}
             alt="Alien Danny"
             fill
             priority
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
             style={{ objectPosition: '50% 15%' }}
           />
@@ -25,9 +26,10 @@ const Hero = () => {
             >
               Hello, I&apos;m Danny!
             </p>
-            <p className="mt-4 mb-6">
+            <p className="mt-4 mb-2">
               I&apos;m a developer with experience building sites and applications in WordPress, React, Tailwind CSS, and API integrations for clients from a variety of different sectors.
             </p>
+            <p className="mb-6">Check out my code at <a href="http://www.github.com/dannykryan" className="underline hover:text-orange dark:hover:text-green transition-colors duration-200">Github</a></p>
             
             <div className="mt-2 flex justify-center lg:justify-start gap-4">
               <a href="#contact" className="button-primary inline-block">

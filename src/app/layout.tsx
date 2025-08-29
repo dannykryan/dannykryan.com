@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
