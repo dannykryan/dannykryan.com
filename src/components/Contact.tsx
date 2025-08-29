@@ -14,12 +14,19 @@ const Contact = () => {
               Drop me a message if you have any questions or just want to say hi and I&apos;ll get back to you as soon as I can.
           </p>
 
-          <div className="flex gap-3 items-center">
+          <div className="flex text-2xl gap-3 items-center">
               <AiOutlineMail size={30} /> <a className="underline hover:text-orange dark:hover:text-green transition-all duration-200" href="mailto:dannykryan@gmail.com">dannykryan@gmail.com</a>
           </div>
 
-          <div className="flex gap-3 items-center">
-              <BsTelephone size={30} /> 07948679828
+          <div className="flex text-2xl gap-3 items-center mt-4">
+            <BsTelephone size={30} /> 
+            <a 
+              href="tel:+447948679828" 
+              className="underline hover:text-orange dark:hover:text-green transition-all duration-200"
+              aria-label="Call me at 07948679828"
+            >
+              07948679828
+            </a>
           </div>
 
       </div>

@@ -3,7 +3,7 @@ import React from 'react'
 const Skills = () => {
   return (
     <div id="skills" className="container pt-16">
-      <div className="grid md:grid-cols-2 gap-20 items-center">
+      <div className="grid md:grid-cols-2 gap-8 lg:gap-20 text-center md:text-left items-center">
         <div>
           <h3 className="text-3xl font-bold">
             Technologies I work with:
@@ -14,7 +14,7 @@ const Skills = () => {
         </div>
 
         <div>
-          <div className="grid grid-cols-2 text-orange dark:text-green text-3xl sm:text-4xl md:text-3xl xl:text-5xl">
+          <div className="grid grid-cols-2 text-orange dark:text-green text-3xl">
             <div className="space-y-2">
               <h2>CSS</h2>
               <h2>HTML</h2>
