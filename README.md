@@ -1,6 +1,6 @@
 # My Profile Website
 
-[website-header](/public/dannykryan-screenshot.png)]
+![website-header](/public/dannykryan-screenshot.png)
 
 Visit: [www.dannykryan.com](https://www.dannykryan.com/)
 
