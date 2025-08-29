@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 bg-offWhite/80 dark:bg-charcoal/80 backdrop-blur-md border-b-2 border-orange dark:border-greenDark">
+    <div className="fixed top-0 left-0 w-full z-50 bg-offWhiteLight/80 dark:bg-charcoal/80 backdrop-blur-md border-b-2 border-orange dark:border-greenDark">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="flex justify-between items-center pb-4">
           <Link href="/" className="hover:text-orange dark:hover:text-green transition-colors duration-200">
