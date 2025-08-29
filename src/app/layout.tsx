@@ -10,8 +10,24 @@ import SmoothScroll from '@/components/SmoothScroll';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: `Danny Ryan's Portfolio`,
-  description: 'A website for software developer, Danny Ryan.',
+  title: `Danny Ryan | Web Developer`,
+  description: 'A website for web developer, Danny Ryan.',
+  openGraph: {
+    title: 'Danny Ryan | Web Developer',
+    description: 'Portfolio website for web developer Danny Ryan',
+    url: 'https://dannykryan.com',
+    siteName: 'Danny Ryan Portfolio',
+    images: [
+      {
+        url: '/public/dannykryan-screenshot.png',
+        width: 1200,
+        height: 630,
+        alt: 'Danny Ryan Portfolio Preview',
+      },
+    ],
+    locale: 'en_UK',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
