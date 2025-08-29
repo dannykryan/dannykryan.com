@@ -38,4 +38,4 @@ npm install
 npm run dev
 ```
 
-9. You can now view the website running locally in your browser by visiting: http://localhost:7000/login.html.
+9. You can now view the website running locally in your browser by visiting: http://localhost:3000/login.html.
