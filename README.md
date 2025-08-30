@@ -6,14 +6,16 @@ Visit: [www.dannykryan.com](https://www.dannykryan.com/)
 
 ## Introduction
 
-This basic portfolio website uses React, Next and Talwind and was created to get more practice with those technologies. It also has a practical use as a place to showcase my projects on the web - in a little more of a user-friendly format than Github allows!
+This portfolio website uses React, Next.js and Tailwind CSS and was created to get more practice with those technologies. It also has a practical use as a place to showcase my projects on the web - in a little more of a user-friendly format than Github allows!
 
-I expect to be updating this webiste regularly so you can expect this repo to change often.
+I expect to be updating this website regularly so you can expect this repo to change often.
 
-It includes some simple animations which rely on the following packages:
+It includes several interactive features:
 
-- [Animate on Scroll Library](https://www.npmjs.com/package/aos)
-- [Framer Motion](https://www.npmjs.com/package/framer-motion)
+- Dark/Light mode toggle with smooth transitions
+- Responsive navigation with mobile menu
+- Hover animations on project cards and links
+- Image transitions between themes
 
 ## Installation
 
