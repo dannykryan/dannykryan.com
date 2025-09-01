@@ -59,7 +59,7 @@ const Navbar = () => {
         
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="flex flex-col gap-4 items-end md:hidden bg-charcoalLight rounded-lg px-4 py-4 mb-4">
+          <div className="flex flex-col gap-4 items-end md:hidden bg-charcoalLight rounded-lg pt-4">
             <ul className="flex flex-col gap-4 text-right">
               <li><Link href="#hero" onClick={toggleMenu} className="menuLink">Home</Link></li>
               <li><Link href="#projects" onClick={toggleMenu} className="menuLink">Projects</Link></li>
