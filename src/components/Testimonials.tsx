@@ -31,20 +31,30 @@ const testimonialData = [
   ];
 
 const Testimonials = () => {
+  const hasOneItemInLastRow = testimonialData.length % 2 !== 0;
+
   return (
     <div id="testimonials" className="container pt-16">
       <Heading title="Testimonials"/>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {testimonialData.map((item, index) => (
-          <TestimonialCard
-            key={index}
-            companyName={item.companyName}
-            desc={item.desc}
-            img={item.img}
-            name={item.name}
-            designation={item.designation}
-            linkedin={item.linkedin}
-          />
+          <div 
+            key={index} 
+            className={
+              hasOneItemInLastRow && index === testimonialData.length - 1 ? 
+                'md:col-span-2 lg:col-span-1 md:max-w-md md:mx-auto lg:mx-0' : ''
+            }
+          >
+            <TestimonialCard
+              key={index}
+              companyName={item.companyName}
+              desc={item.desc}
+              img={item.img}
+              name={item.name}
+              designation={item.designation}
+              linkedin={item.linkedin}
+            />
+          </div>
         ))}
       </div>
     </div>
