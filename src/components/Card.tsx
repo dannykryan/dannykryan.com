@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface propsType {
+interface cardProps {
     title: string;
     desc: string;
     img: string;
@@ -10,7 +10,7 @@ interface propsType {
     link: string;
 }
 
-const Card:React.FC<propsType> = ({ title, desc, img, tags, link }) => {
+const Card:React.FC<cardProps> = ({ title, desc, img, tags, link }) => {
   return (
     <div 
       className="rounded-t-3xl overflow-hidden w-full h-full flex flex-col transition-all duration-300 hover:cursor-pointer dark:hover:shadow-gray-800 group" 
@@ -29,7 +29,7 @@ const Card:React.FC<propsType> = ({ title, desc, img, tags, link }) => {
         </Link>
       </div>
 
-      <div className="p-5 bg-offWhiteLight space-y-3 rounded-b-3xl dark:bg-charcoalMid text-charcoal dark:text-offWhite flex-grow flex flex-col justify-between">
+      <div className="p-5 bg-white space-y-3 rounded-b-3xl dark:bg-charcoalMid text-charcoal dark:text-offWhite flex-grow flex flex-col justify-between">
         <div>
           <h3 className="text-2xl font-medium">{title}</h3>
           <p className="text-sm mt-2">{desc}</p>

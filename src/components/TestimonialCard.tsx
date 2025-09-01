@@ -19,7 +19,7 @@ const TestimonialCard: React.FC<propsType> = ({
     linkedin
 }) => {
   return (
-    <div className="bg-offWhiteLight dark:bg-offWhite text-charcoal min-w-[300px] border rounded-3xl p-4 md:p-8 h-full flex flex-col justify-between">
+    <div className="bg-white dark:bg-offWhite text-charcoal min-w-[300px] border rounded-3xl p-4 md:p-8 h-full flex flex-col justify-between">
         <p className="overflow-auto md:overflow-visible">{desc}</p>
         <a href={linkedin} className="hover:cursor-pointer">
             <div className="flex gap-4 items-center pt-4 group">
