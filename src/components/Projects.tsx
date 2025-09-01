@@ -45,7 +45,7 @@ const Projects = () => {
         {projectData.map((el) => (
           <div 
             key={el.id} 
-            className="w-full max-w-xs flex-shrink-0"
+            className="w-full max-w-[280px] md:max-w-xs"
           >
             <Card 
               title={el.title}
