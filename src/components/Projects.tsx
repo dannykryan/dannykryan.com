@@ -35,6 +35,14 @@ const projectData = [
       tags: ["HTML", "CSS", "JS", "API"],
       link: "https://github.com/dannykryan/soc3-weatherApp"
     },
+    {
+      id: 4,
+      title: "Harvest Budget Reporting App",
+      desc: "A Google Apps Script tool that generates budget reports for Harvest projects by aggregating time entries, costs, and roles into a Google Sheet.",
+      img: "/weather-app-bg.png",
+      tags: ["Google Apps Script", "Javascript", "Harvest API"],
+      link: "https://github.com/dannykryan/soc3-weatherApp"
+    },
   ];
 
 const Projects = () => {  
