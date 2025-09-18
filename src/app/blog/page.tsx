@@ -41,7 +41,7 @@ export default function BlogPage() {
                 setLoading(true);
                 setError(null);
                 
-                const response = await fetch('http://localhost:5000/api/notion/database/2641ce48-62da-8098-a645-c2259d5e47f9/pages');
+                const response = await fetch('http://localhost:5000/allblogs');
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);

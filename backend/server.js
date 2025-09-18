@@ -24,6 +24,23 @@ app.get('/allblogs', async (req, res) => {
     try {
         const databaseId = process.env.BLOG_DATABASE_ID;
         
+        // Debug logs
+        console.log('🔍 Debug info:', {
+            databaseId: databaseId,
+            hasToken: !!process.env.NOTION_TOKEN,
+            tokenLength: process.env.NOTION_TOKEN?.length
+        });
+        
+        if (!databaseId) {
+            throw new Error('BLOG_DATABASE_ID not found in environment variables');
+        }
+        
+        if (!process.env.NOTION_TOKEN) {
+            throw new Error('NOTION_TOKEN not found in environment variables');
+        }
+        
+        console.log(`📡 Making request to: https://api.notion.com/v1/databases/${databaseId}/query`);
+        
         // Make direct HTTP request to Notion API
         const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
             method: 'POST',
@@ -42,15 +59,18 @@ app.get('/allblogs', async (req, res) => {
             })
         });
 
+        console.log(`📡 Response status: ${response.status}`);
+        
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorText = await response.text();
+            console.error('❌ Notion API error:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
         }
 
         const data = await response.json();
         
         console.log(`📄 Found ${data.results.length} pages in database`);
         
-        // Transform the data to a cleaner format for your frontend
         const cleanedPages = data.results.map(page => ({
             id: page.id,
             title: page.properties.Title.title[0]?.plain_text || 'Untitled',
@@ -64,6 +84,7 @@ app.get('/allblogs', async (req, res) => {
             last_edited_time: page.last_edited_time
         }));
         
+        // 🔥 SEND THE RESPONSE
         res.json({
             success: true,
             count: cleanedPages.length,
@@ -71,7 +92,11 @@ app.get('/allblogs', async (req, res) => {
         });
         
     } catch (error) {
-        console.error('❌ Error querying database:', error);
+        console.error('❌ Detailed error:', {
+            message: error.message,
+            stack: error.stack,
+            cause: error.cause
+        });
         res.status(500).json({ 
             success: false,
             error: 'Failed to query database',
