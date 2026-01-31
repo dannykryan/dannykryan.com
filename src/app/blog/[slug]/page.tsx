@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Type definitions
 interface BlogPost {
@@ -43,9 +44,6 @@ export default function BlogPostPage() {
     const [post, setPost] = useState<BlogPost | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
-    console.log('🖼️ Featured Image URL:', post.featuredImage);
-    console.log('📄 Post object:', JSON.stringify(post, null, 2));
 
     useEffect(() => {
         const fetchPost = async (): Promise<void> => {
@@ -255,6 +253,8 @@ export default function BlogPostPage() {
         );
     }
 
+    console.log('post object:', post)
+
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl mt-[75px]">
             <nav className="mb-8">
@@ -266,11 +266,13 @@ export default function BlogPostPage() {
             <article>
                 <header className="mb-8">
                     {post.featuredImage && (
-                        <div className="relative w-full h-64 mb-6">
-                            <img 
+                        <div className="relative w-full aspect-video mb-6">
+                            <Image 
                                 src={post.featuredImage} 
                                 alt={post.title}
-                                className="w-full h-full object-cover rounded-lg"
+                                className="object-cover rounded-lg"
+                                fill={true}
+                                priority
                             />
                         </div>
                     )}

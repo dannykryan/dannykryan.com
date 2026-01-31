@@ -206,7 +206,7 @@ app.get('/api/notion/database/:databaseId/post/:slug', async (req, res) => {
             slug: page.properties['URL Slug'].rich_text[0]?.plain_text || '',
             category: page.properties.Category.select?.name || '',
             publishDate: page.properties['Publish Date'].date?.start || '',
-            featuredImage: page.properties['Featured Image URL'].url || null,
+            featuredImage: page.properties['Featured Image URL'].files[0]?.file.url || null,
             tags: page.properties.Tags.multi_select.map(tag => tag.name),
             url: page.url,
             created_time: page.created_time,
