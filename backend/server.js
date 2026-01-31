@@ -70,6 +70,11 @@ app.get('/allblogs', async (req, res) => {
         const data = await response.json();
         
         console.log(`📄 Found ${data.results.length} pages in database`);
+
+        if (data.results.length > 0) {
+            console.log('🔍 First page property names:', Object.keys(data.results[0].properties));
+            console.log('📋 First page full data:', JSON.stringify(data.results[0].properties, null, 2));
+        }
         
         const cleanedPages = data.results.map(page => ({
             id: page.id,
@@ -77,12 +82,14 @@ app.get('/allblogs', async (req, res) => {
             slug: page.properties['URL Slug'].rich_text[0]?.plain_text || '',
             category: page.properties.Category.select?.name || '',
             publishDate: page.properties['Publish Date'].date?.start || '',
-            featuredImage: page.properties['Featured Image URL'].url || null,
+            featuredImage: page.properties['Featured Image URL'].files[0]?.file.url || null,
             tags: page.properties.Tags.multi_select.map(tag => tag.name),
             url: page.url,
             created_time: page.created_time,
             last_edited_time: page.last_edited_time
         }));
+
+        console.log('cleaned pages:', cleanedPages);
         
         // 🔥 SEND THE RESPONSE
         res.json({

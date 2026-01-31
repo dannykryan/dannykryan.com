@@ -93,11 +93,11 @@ export default function BlogPage() {
                         <p className="text-sm text-gray-600 mb-2">Published: {new Date(post.publishDate).toLocaleDateString()}</p>
                         <p className="text-sm mb-4">Tags: {post.tags.join(', ')}</p>
                         {post.featuredImage && (
-                            <div className="w-[300px] h-[300px]">
+                            <div className="relative w-[300px] h-[300px] mb-4">
                                 <Image 
                                     src={post.featuredImage} 
                                     alt={post.title}
-                                    className="object-cover rounded mb-4"
+                                    className="object-cover rounded"
                                     fill={true}
                                 />
                             </div>

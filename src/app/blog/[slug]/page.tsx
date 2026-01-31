@@ -44,6 +44,9 @@ export default function BlogPostPage() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    console.log('🖼️ Featured Image URL:', post.featuredImage);
+    console.log('📄 Post object:', JSON.stringify(post, null, 2));
+
     useEffect(() => {
         const fetchPost = async (): Promise<void> => {
             try {
