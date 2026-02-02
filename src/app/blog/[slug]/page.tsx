@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import ImageGallery from '@/components/ImageGallery/ImageGallery';
 
 // Type definitions
 interface BlogPost {
@@ -253,6 +254,9 @@ export default function BlogPostPage() {
                         {caption && <p className="text-sm text-gray-600 mt-2 text-center">{caption}</p>}
                     </div>
                 );
+
+            case 'image_gallery':
+                return <ImageGallery key={id} images={block.images} />;
 
             default:
                 // For unsupported block types, show the raw data

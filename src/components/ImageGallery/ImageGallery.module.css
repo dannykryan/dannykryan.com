@@ -1,0 +1,13 @@
+.wrapper :global(.swiper-pagination) {
+    margin-top: 20px;
+    position: relative;
+}
+
+.wrapper :global(.swiper-pagination-bullet-active) {
+    @apply bg-orange dark:bg-green;
+}
+
+.wrapper :global(.swiper-button-prev),
+.wrapper :global(.swiper-button-next) {
+    @apply text-orange dark:text-green;
+}
