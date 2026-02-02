@@ -9,11 +9,34 @@ export async function GET(request: NextRequest) {
     try {
         console.log(`🔍 Fetching all blog posts`);
         
-        const response = await (notion.databases as any).query({
-            database_id: process.env.BLOG_DATABASE_ID!,
-        });
+        const response = await fetch(
+            `https://api.notion.com/v1/databases/${process.env.BLOG_DATABASE_ID}/query`,
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
+                    'Notion-Version': '2022-06-28',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sorts: [
+                        {
+                            property: 'Publish Date',
+                            direction: 'descending'
+                        }
+                    ]
+                })
+            }
+        );
 
-        const posts = response.results.map((page: any) => ({
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+        }
+
+        const data = await response.json();
+
+        const posts = data.results.map((page: any) => ({
             id: page.id,
             title: page.properties.Title.title[0]?.plain_text || 'Untitled',
             slug: page.properties['URL Slug'].rich_text[0]?.plain_text || '',

@@ -1,10 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Client } from '@notionhq/client';
-
-const notion = new Client({ 
-    auth: process.env.NOTION_TOKEN, 
-    notionVersion: "2025-09-03"
-});
 
 export async function GET(
     request: NextRequest,
@@ -14,28 +8,42 @@ export async function GET(
         const { slug } = params;
         
         console.log(`🔍 Looking for post with slug: ${slug}`);
-        console.log(`🔑 Token exists: ${!!process.env.NOTION_TOKEN}`);
-        console.log(`🔑 Token preview: ${process.env.NOTION_TOKEN?.substring(0, 15)}...`);
-        console.log(`📁 Database ID: ${process.env.BLOG_DATABASE_ID}`);
         
-        const response = await notion.dataSources.query({
-            data_source_id: process.env.BLOG_DATABASE_ID!,
-            filter: {
-                property: 'URL Slug',
-                rich_text: {
-                    equals: slug
-                }
+        const response = await fetch(
+            `https://api.notion.com/v1/databases/${process.env.BLOG_DATABASE_ID}/query`,
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
+                    'Notion-Version': '2022-06-28',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    filter: {
+                        property: 'URL Slug',
+                        rich_text: {
+                            equals: slug
+                        }
+                    }
+                })
             }
-        });
+        );
 
-        if (response.results.length === 0) {
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+        }
+
+        const data = await response.json();
+
+        if (data.results.length === 0) {
             return NextResponse.json({
                 success: false,
                 error: 'Post not found'
             }, { status: 404 });
         }
         
-        const page = response.results[0] as any;
+        const page = data.results[0];
         
         // Fetch ALL blocks with pagination
         let allBlocks = [];
@@ -43,14 +51,26 @@ export async function GET(
         let startCursor: string | undefined = undefined;
 
         while (hasMore) {
-            const contentResponse = await notion.blocks.children.list({
-                block_id: page.id,
-                start_cursor: startCursor,
-            });
+            const contentResponse: Response = await fetch(
+                `https://api.notion.com/v1/blocks/${page.id}/children${startCursor ? `?start_cursor=${startCursor}` : ''}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
+                        'Notion-Version': '2022-06-28',
+                    }
+                }
+            );
 
-            allBlocks.push(...contentResponse.results);
-            hasMore = contentResponse.has_more;
-            startCursor = contentResponse.next_cursor ?? undefined;
+            if (!contentResponse.ok) {
+                console.error(`Failed to fetch page content: ${contentResponse.status}`);
+                break;
+            }
+
+            const contentData = await contentResponse.json();
+            allBlocks.push(...contentData.results);
+            hasMore = contentData.has_more;
+            startCursor = contentData.next_cursor ?? undefined;
         }
 
         console.log(`📝 Found ${allBlocks.length} total blocks`);
