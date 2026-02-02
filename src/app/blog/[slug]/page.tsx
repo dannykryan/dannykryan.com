@@ -61,7 +61,11 @@ export default function BlogPostPage() {
                 setLoading(true);
                 setError(null);
                 
-                const response = await fetch(`http://localhost:5000/api/notion/database/2641ce48-62da-8098-a645-c2259d5e47f9/post/${slug}`);
+                const apiUrl = process.env.NODE_ENV === 'production'
+                    ? `/api/post/${slug}`
+                    : `http://localhost:5000/api/notion/database/${process.env.BLOG_DATABASE_ID}/post/${slug}`;
+                
+                const response = await fetch(apiUrl);
                 
                 if (!response.ok) {
                     if (response.status === 404) {

@@ -40,8 +40,12 @@ export default function BlogPage() {
             try {
                 setLoading(true);
                 setError(null);
+
+                const apiUrl = process.env.NODE_ENV === 'production'
+                    ? '/api/allblogs'
+                    : 'http://localhost:5000/allblogs';
                 
-                const response = await fetch('http://localhost:5000/allblogs');
+                const response = await fetch(apiUrl);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
