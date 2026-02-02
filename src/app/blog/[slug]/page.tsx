@@ -63,7 +63,7 @@ export default function BlogPostPage() {
                 
                 const apiUrl = process.env.NODE_ENV === 'production'
                     ? `/api/post/${slug}`
-                    : `http://localhost:5000/api/notion/database/${process.env.BLOG_DATABASE_ID}/post/${slug}`;
+                    : `http://localhost:5000/api/notion/database/2641ce4862da8098a645c2259d5e47f9/post/${slug}`;
                 
                 const response = await fetch(apiUrl);
                 
