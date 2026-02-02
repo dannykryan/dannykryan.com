@@ -25,7 +25,7 @@ interface ImageGalleryProps {
 
 export default function ImageGallery({ images }: ImageGalleryProps) {
     return (
-        <div className={styles.wrapper + " mb-8"}>
+        <div className="mb-8">
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={10}
@@ -51,7 +51,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                                 />
                             </div>
                             {caption && (
-                                <p className="text-sm text-gray-600 mt-2 text-center">{caption}</p>
+                                <p className="caption text-sm mt-2 text-center">{caption}</p>
                             )}
                         </SwiperSlide>
                     );

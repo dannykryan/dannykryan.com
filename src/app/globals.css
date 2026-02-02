@@ -48,3 +48,29 @@ button.navbar-button {
     dark:border-green dark:text-green dark:hover:bg-green dark:hover:text-charcoal 
     transition-colors duration-300 relative;
 }
+
+/* Swiper Gallery Styling */
+.swiper-pagination-bullet {
+    @apply bg-gray-600 dark:bg-gray-600;
+}
+
+.swiper-pagination-bullet-active {
+    @apply bg-orange dark:bg-green !important;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    @apply text-orange dark:text-green !important;
+}
+
+.swiper-pagination {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: auto !important;
+    margin-top: 20px !important;
+    width: 100%;
+}
+
+.caption {
+  @apply text-gray-600 dark:text-gray-400 !important;
+}

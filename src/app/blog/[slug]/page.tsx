@@ -1,4 +1,5 @@
 "use client"
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -257,7 +258,7 @@ export default function BlogPostPage() {
                                 />
                             </div>
                         )}
-                        {caption && <p className="text-sm text-gray-600 mt-2 text-center">{caption}</p>}
+                        {caption && <p className="caption text-sm text-gray-600 mt-2 text-center">{caption}</p>}
                     </div>
                 );
 
@@ -291,7 +292,7 @@ export default function BlogPostPage() {
                 <div className="text-red-500 text-center">
                     <h1 className="text-2xl font-bold mb-4">Error</h1>
                     <p>{error}</p>
-                    <Link href="/blog" className="inline-block mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    <Link href="/blog" className="inline-block mt-4 bg-orange dark:bg-green text-white px-4 py-2 rounded hover:bg-orangeDark dark:hover:bg-greenDark transition-colors">
                         ← Back to Blog
                     </Link>
                 </div>
@@ -304,7 +305,7 @@ export default function BlogPostPage() {
             <div className="container mx-auto px-4 py-8 mt-[75px]">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold mb-4">Post not found</h1>
-                    <Link href="/blog" className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    <Link href="/blog" className="inline-block bg-orange dark:bg-green text-white px-4 py-2 rounded hover:bg-orangeDark dark:hover:bg-greenDark transition-colors">
                         ← Back to Blog
                     </Link>
                 </div>
@@ -317,7 +318,7 @@ export default function BlogPostPage() {
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl mt-[75px]">
             <nav className="mb-8">
-                <Link href="/blog" className="text-blue-500 hover:text-blue-600">
+                <Link href="/blog" className="text-orange dark:text-green hover:text-orangeDark dark:hover:text-greenDark transition-colors">
                     ← Back to Blog
                 </Link>
             </nav>
@@ -338,7 +339,7 @@ export default function BlogPostPage() {
                     
                     <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
                     
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
+                    <div className="metadata flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
                         <span>Category: {post.category}</span>
                         <span>Published: {new Date(post.publishDate).toLocaleDateString()}</span>
                         <span>Tags: {post.tags.join(', ')}</span>
@@ -354,7 +355,7 @@ export default function BlogPostPage() {
                 </div>
 
                 <div className="border-t mt-12 pt-8">
-                    <Link href="/blog" className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    <Link href="/blog" className="inline-block bg-orange dark:bg-green text-white px-4 py-2 rounded hover:bg-orangeDark dark:hover:bg-greenDark transition-colors">
                         ← Back to All Posts
                     </Link>
                 </div>
