@@ -13,6 +13,9 @@ export async function GET(
         const { slug } = params;
         
         console.log(`🔍 Looking for post with slug: ${slug}`);
+        console.log(`🔑 Token exists: ${!!process.env.NOTION_TOKEN}`);
+        console.log(`🔑 Token preview: ${process.env.NOTION_TOKEN?.substring(0, 15)}...`);
+        console.log(`📁 Database ID: ${process.env.BLOG_DATABASE_ID}`);
         
         const response = await notion.dataSources.query({
             data_source_id: process.env.BLOG_DATABASE_ID!,
