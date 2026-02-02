@@ -16,14 +16,7 @@ const notion = new Client({
     auth: process.env.NOTION_TOKEN 
 });
 
-const corsOptions = {
-    origin: process.env.NODE_ENV === 'production' 
-        ? 'https://dannykryan.com' // Your production frontend URL
-        : 'http://localhost:3000',
-    credentials: true
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 // Get all pages from a specific database

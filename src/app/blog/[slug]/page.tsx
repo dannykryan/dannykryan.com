@@ -29,6 +29,7 @@ interface NotionBlock {
 
 interface ImageGalleryBlock {
     object: 'block';
+    id: string;
     type: 'image_gallery';
     images: NotionBlock[];
 }
@@ -107,6 +108,7 @@ export default function BlogPostPage() {
                 if (imageGroup.length > 1) {
                     grouped.push({
                         object: 'block',
+                        id: crypto.randomUUID(),
                         type: 'image_gallery',
                         images: imageGroup,
                     } as ImageGalleryBlock);
