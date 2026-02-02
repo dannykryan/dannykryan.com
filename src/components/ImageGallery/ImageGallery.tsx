@@ -33,7 +33,6 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                 navigation
                 pagination={{ clickable: true }}
                 className="rounded-lg"
-                rewind={true}
             >
                 {images.map((block) => {
                     const imageUrl = block.image?.external?.url || block.image?.file?.url;

@@ -16,7 +16,14 @@ const notion = new Client({
     auth: process.env.NOTION_TOKEN 
 });
 
-app.use(cors());
+const corsOptions = {
+    origin: process.env.NODE_ENV === 'production' 
+        ? 'https://dannykryan.com' // Your production frontend URL
+        : 'http://localhost:3000',
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Get all pages from a specific database
@@ -177,27 +184,37 @@ app.get('/api/notion/database/:databaseId/post/:slug', async (req, res) => {
         
         const page = data.results[0];
         
-        // 🔥 ADD THIS PART: Fetch the actual page content (blocks)
+        // Fetch ALL blocks with pagination
         console.log(`📄 Fetching content for page ID: ${page.id}`);
         
-        const contentResponse = await fetch(`https://api.notion.com/v1/blocks/${page.id}/children`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
-                'Notion-Version': '2022-06-28',
+        let allBlocks = [];
+        let hasMore = true;
+        let startCursor = undefined;
+
+        while (hasMore) {
+            const contentResponse = await fetch(
+                `https://api.notion.com/v1/blocks/${page.id}/children?${startCursor ? `start_cursor=${startCursor}` : ''}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
+                        'Notion-Version': '2022-06-28',
+                    }
+                }
+            );
+
+            if (!contentResponse.ok) {
+                console.error(`Failed to fetch page content: ${contentResponse.status}`);
+                break;
             }
-        });
 
-        if (!contentResponse.ok) {
-            console.error(`Failed to fetch page content: ${contentResponse.status}`);
-            // Continue without content rather than failing
+            const contentData = await contentResponse.json();
+            allBlocks.push(...contentData.results);
+            hasMore = contentData.has_more;
+            startCursor = contentData.next_cursor;
         }
 
-        let contentData = { results: [] };
-        if (contentResponse.ok) {
-            contentData = await contentResponse.json();
-            console.log(`📝 Found ${contentData.results.length} blocks`);
-        }
+        console.log(`📝 Found ${allBlocks.length} total blocks`);
         
         // Clean the data
         const cleanedPage = {
@@ -211,7 +228,7 @@ app.get('/api/notion/database/:databaseId/post/:slug', async (req, res) => {
             url: page.url,
             created_time: page.created_time,
             last_edited_time: page.last_edited_time,
-            content: contentData.results // 🔥 THIS IS THE KEY PART
+            content: allBlocks
         };
         
         res.json({

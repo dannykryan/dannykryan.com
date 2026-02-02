@@ -34,10 +34,17 @@ git clone https://github.com/dannykryan/dannykryan.com.git
 npm install
 ```
 
-4. Start the development server by entering the following command into your terminal:
+4. Start the back-end server by entering the following commands in a new terminal window:
+
+```
+cd backend
+npm run dev
+```
+
+5. Start the front-end server by entering the following command in another terminal window (from the root directory):
 
 ```
 npm run dev
 ```
 
-9. You can now view the website running locally in your browser by visiting: http://localhost:3000/login.html.
+9. You can now view the website running locally in your browser by visiting: http://localhost:3000
