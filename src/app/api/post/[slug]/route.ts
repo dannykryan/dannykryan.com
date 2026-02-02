@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Client } from '@notionhq/client';
 
 const notion = new Client({ 
-    auth: process.env.NOTION_TOKEN 
+    auth: process.env.NOTION_TOKEN, 
+    notionVersion: "2025-09-03"
 });
 
 export async function GET(
