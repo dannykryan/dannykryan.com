@@ -16,7 +16,7 @@ interface BlogPost {
     url: string;
     created_time: string;
     last_edited_time: string;
-    content: NotionBlock[];
+    content: ContentBlock[];
 }
 
 interface NotionBlock {
@@ -25,6 +25,14 @@ interface NotionBlock {
     type: string;
     [key: string]: any; // For different block types
 }
+
+interface ImageGalleryBlock {
+    object: 'block';
+    type: 'image_gallery';
+    images: NotionBlock[];
+}
+
+type ContentBlock = NotionBlock | ImageGalleryBlock;
 
 interface ApiResponse {
     success: boolean;
@@ -63,8 +71,9 @@ export default function BlogPostPage() {
                 const data: ApiResponse | ApiError = await response.json();
                 
                 if (data.success) {
+                    data.result.content = groupConsecutiveImages(data.result.content);
                     setPost(data.result);
-                    console.log('📄 Post content:', data.result.content); // Debug log
+                    console.log('📄 Post content:', data.result.content);
                 } else if ('error' in data) {
                     throw new Error(data.error || 'Failed to fetch post');
                 } else {
@@ -83,6 +92,43 @@ export default function BlogPostPage() {
             fetchPost();
         }
     }, [slug]);
+
+    const groupConsecutiveImages = (blocks: ContentBlock[]) => {
+        const grouped: ContentBlock[] = [];
+        let imageGroup = [] as NotionBlock[];
+
+        // for each image block in array, if next block is also image, group them in an array, else leave as a block
+        blocks.forEach((block) => {
+            if (block.type === 'image') {
+                imageGroup.push(block);
+            } else {
+                // Finalize any accumulated images
+                if (imageGroup.length > 1) {
+                    grouped.push({
+                        object: 'block',
+                        type: 'image_gallery',
+                        images: imageGroup,
+                    } as ImageGalleryBlock);
+                } else if (imageGroup.length === 1) {
+                    grouped.push(imageGroup[0]);
+                }
+                imageGroup = [];
+                grouped.push(block);
+            }
+        });
+
+        // Handle remaining images at the end
+        if (imageGroup.length > 1) {
+            grouped.push({
+                object: 'block',
+                type: 'image_gallery',
+                images: imageGroup,
+            } as ImageGalleryBlock);
+        } else if (imageGroup.length === 1) {
+            grouped.push(imageGroup[0]);
+        }
+            return grouped;
+    };
 
     const renderRichText = (richTextArray: any[]) => {
         return richTextArray.map((text, index) => {
@@ -195,11 +241,14 @@ export default function BlogPostPage() {
                 return (
                     <div key={id} className="mb-4">
                         {imageUrl && (
-                            <img 
-                                src={imageUrl} 
-                                alt={caption || 'Image'} 
-                                className="w-full rounded"
-                            />
+                            <div className="relative w-full h-[600px]">
+                                <Image 
+                                    src={imageUrl} 
+                                    alt={caption || 'Image'}
+                                    className="object-cover rounded"
+                                    fill={true}
+                                />
+                            </div>
                         )}
                         {caption && <p className="text-sm text-gray-600 mt-2 text-center">{caption}</p>}
                     </div>
