@@ -3,7 +3,7 @@ import { Client } from '@notionhq/client';
 
 const notion = new Client({ 
     auth: process.env.NOTION_TOKEN, 
-    notionVersion: "2022-06-28"
+    notionVersion: "2025-09-03"
 });
 
 export async function GET(
