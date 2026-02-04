@@ -90,7 +90,7 @@ export default async function BlogPage() {
             {post.featuredImage && (
               <div className="relative w-full h-[300px] mb-4">
                 <Image
-                  src={post.featuredImage}
+                  src={`/api/notion-featured-image/${post.id}`}
                   alt={post.title}
                   className="object-cover rounded"
                   fill={true}
