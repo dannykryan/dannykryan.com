@@ -64,7 +64,7 @@ export default async function BlogPostPage(
     const post = await fetchPost(params.slug);
 
     console.log('Fetched post keys count:', Object.keys(post ?? {}).length);
-console.log('Fetched post content count:', post?.content?.length ?? 0);
+    console.log('Fetched post content count:', post?.content?.length ?? 0);
 
     if (!post) {
         notFound();
