@@ -57,10 +57,9 @@ The website showcases my projects, skills, and testimonials with a modern, respo
 - **React Icons** - Icon library
 - **Swiper** - Image carousel/gallery component
 
-### Backend
-- **Express.js** - Node.js server framework
+### Backend (Serverless API Routes)
+- **Next.js API Routes** - Serverless functions for Notion API calls
 - **Notion API** - Content management
-- **CORS** - Cross-origin resource sharing
 
 ### Development
 - **ESLint** - Code linting
@@ -88,14 +87,14 @@ npm install
 ```
 
 3. **Set up environment variables:**
-Create a `.env.local` file in the root directory:
+Create two `.env.local` files in both the root directory and the backend folder:
 ```env
 NOTION_TOKEN=your_notion_token_here
 NEXT_PUBLIC_BLOG_DATABASE_ID=your_database_id_here
 NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
 ```
 
-4. **Start the backend server:**
+4. **Start the development server:**
 ```bash
 cd backend
 npm install
@@ -413,14 +412,6 @@ npm run lint
 Add these in your Vercel project settings under "Environment Variables":
 - `NOTION_TOKEN`
 - `NEXT_PUBLIC_BLOG_DATABASE_ID`
-
-### Backend Deployment
-
-For the backend, you can use:
-- **Render** - Free tier available
-- **Railway** - Simple deployment
-- **Fly.io** - Global deployment
-- **Heroku** - Classic option
 
 ## 📖 Example: Creating a Blog Post
 
