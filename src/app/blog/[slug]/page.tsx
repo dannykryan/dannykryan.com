@@ -177,7 +177,7 @@ export default function BlogPostPage() {
                         href={text.href} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className={`text-blue-600 hover:text-blue-800 underline${className}`}
+                        className={`text-orange hover:text-orangeDark dark:text-green dark:hover:text-greenDark underline${className}`}
                     >
                         {content}
                     </a>
@@ -264,6 +264,9 @@ export default function BlogPostPage() {
 
             case 'image_gallery':
                 return <ImageGallery key={id} images={block.images} />;
+
+            case 'divider':
+                return <hr key={id} className="my-8 border-b-2 border-orange dark:border-green" />;
 
             default:
                 // For unsupported block types, show the raw data

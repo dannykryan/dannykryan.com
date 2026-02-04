@@ -30,8 +30,14 @@ interface ApiError {
     details?: string;
 }
 
+interface FeaturedImage {
+    url: string;
+    alt: string;
+}
+
 export default function BlogPage() {
     const [posts, setPosts] = useState<BlogPost[]>([]);
+    const [featuredImages, setFeaturedImages] = useState<FeaturedImage[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -70,6 +76,17 @@ export default function BlogPage() {
         fetchPosts();
     }, []);
 
+    useEffect(() => {
+        const images = posts
+            .filter(post => post.featuredImage)
+            .map(post => ({
+                url: post.featuredImage as string,
+                alt: post.title
+            }));
+        setFeaturedImages(images);
+        console.log('Featured images set:', images);
+    }, [posts]);
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -90,7 +107,7 @@ export default function BlogPage() {
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold mb-8 mt-[75px]">Latest Blog Posts ({posts.length})</h1>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post: BlogPost) => (
+                {posts.map((post: BlogPost, index) => (
                     <div key={post.id} className="blog-post-card border rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
                         <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
                         <p className="text-sm text-gray-600 mb-1">Category: {post.category}</p>
@@ -103,6 +120,9 @@ export default function BlogPage() {
                                     alt={post.title}
                                     className="object-cover rounded"
                                     fill={true}
+                                    priority={index === 0}  // Only first image is priority
+                                    quality={75}
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                             </div>
                         )}
