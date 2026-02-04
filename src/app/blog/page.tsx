@@ -84,7 +84,6 @@ export default function BlogPage() {
                 alt: post.title
             }));
         setFeaturedImages(images);
-        console.log('Featured images set:', images);
     }, [posts]);
 
     if (loading) {

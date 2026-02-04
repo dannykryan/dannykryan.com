@@ -7,8 +7,6 @@ export async function GET(
     try {
         const { slug } = params;
         
-        console.log(`🔍 Looking for post with slug: ${slug}`);
-        
         const response = await fetch(
             `https://api.notion.com/v1/databases/${process.env.BLOG_DATABASE_ID}/query`,
             {
@@ -72,8 +70,6 @@ export async function GET(
             hasMore = contentData.has_more;
             startCursor = contentData.next_cursor ?? undefined;
         }
-
-        console.log(`📝 Found ${allBlocks.length} total blocks`);
         
         const cleanedPage = {
             id: page.id,

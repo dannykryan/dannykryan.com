@@ -4,38 +4,14 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import ImageGallery from '@/components/ImageGallery/ImageGallery';
 
-// Type definitions
-interface BlogPost {
-    id: string;
-    title: string;
-    slug: string;
-    category: string;
-    publishDate: string;
-    featuredImage: string | null;
-    tags: string[];
-    url: string;
-    created_time: string;
-    last_edited_time: string;
-    content: ContentBlock[];
-}
+// Import helper functions
+import { groupConsecutiveImages } from '@/lib/blogUtils/groupConsecutiveImages';
+import { extractTableOfContents } from '@/lib/blogUtils/extractTableOfContents';
+import { renderNotionBlock } from '@/lib/blogUtils/renderNotionBlock';
 
-interface NotionBlock {
-    object: string;
-    id: string;
-    type: string;
-    [key: string]: any;
-}
-
-interface ImageGalleryBlock {
-    object: 'block';
-    id: string;
-    type: 'image_gallery';
-    images: NotionBlock[];
-}
-
-type ContentBlock = NotionBlock | ImageGalleryBlock;
+// Import Types
+import type { BlogPost, TOCItem } from '@/types/blog';
 
 interface ApiResponse {
     success: boolean;
@@ -46,11 +22,6 @@ interface ApiError {
     success: false;
     error: string;
     details?: string;
-}
-
-interface TOCItem {
-    id: string;
-    text: string;
 }
 
 export default function BlogPostPage() {
@@ -70,7 +41,7 @@ export default function BlogPostPage() {
                 
                 const apiUrl = process.env.NODE_ENV === 'production'
                     ? `/api/post/${slug}`
-                    : `http://localhost:5000/api/notion/database/2641ce4862da8098a645c2259d5e47f9/post/${slug}`;
+                    : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/notion/database/${process.env.NEXT_PUBLIC_BLOG_DATABASE_ID}}/post/${slug}`;
                 
                 const response = await fetch(apiUrl);
                 
@@ -91,8 +62,6 @@ export default function BlogPostPage() {
                     const tocItems = extractTableOfContents(data.result.content);
                     setTableOfContents(tocItems);
                     
-                    console.log('📄 Post content:', data.result.content);
-                    console.log('📑 Table of Contents:', tocItems);
                 } else if ('error' in data) {
                     throw new Error(data.error || 'Failed to fetch post');
                 } else {
@@ -111,245 +80,6 @@ export default function BlogPostPage() {
             fetchPost();
         }
     }, [slug]);
-
-    // Helper function to create URL-safe ID from text
-    const createAnchorId = (text: string): string => {
-        return text
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-|-$/g, '');
-    };
-
-    // Extract H2 headings for table of contents
-    const extractTableOfContents = (blocks: ContentBlock[]): TOCItem[] => {
-        const toc: TOCItem[] = [];
-        
-        blocks.forEach((block) => {
-            if (block.type === 'heading_2') {
-                const h2Text = block.heading_2?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                if (h2Text) {
-                    toc.push({
-                        id: createAnchorId(h2Text),
-                        text: h2Text
-                    });
-                }
-            }
-        });
-        
-        return toc;
-    };
-
-    const groupConsecutiveImages = (blocks: ContentBlock[]) => {
-        const grouped: ContentBlock[] = [];
-        let imageGroup = [] as NotionBlock[];
-
-        blocks.forEach((block) => {
-            if (block.type === 'image') {
-                imageGroup.push(block);
-            } else {
-                if (imageGroup.length > 1) {
-                    grouped.push({
-                        object: 'block',
-                        id: crypto.randomUUID(),
-                        type: 'image_gallery',
-                        images: imageGroup,
-                    } as ImageGalleryBlock);
-                } else if (imageGroup.length === 1) {
-                    grouped.push(imageGroup[0]);
-                }
-                imageGroup = [];
-                grouped.push(block);
-            }
-        });
-
-        if (imageGroup.length > 1) {
-            grouped.push({
-                object: 'block',
-                type: 'image_gallery',
-                images: imageGroup,
-            } as ImageGalleryBlock);
-        } else if (imageGroup.length === 1) {
-            grouped.push(imageGroup[0]);
-        }
-        return grouped;
-    };
-
-    const renderRichText = (richTextArray: any[]) => {
-        return richTextArray.map((text, index) => {
-            let content = text.plain_text;
-            
-            const annotations = text.annotations;
-            let className = '';
-            
-            if (annotations.bold) className += ' font-bold';
-            if (annotations.italic) className += ' italic';
-            if (annotations.underline) className += ' underline';
-            if (annotations.strikethrough) className += ' line-through';
-            if (annotations.code) className += ' bg-gray-100 px-1 rounded text-sm font-mono';
-            
-            if (annotations.color && annotations.color !== 'default') {
-                const colorMap: { [key: string]: string } = {
-                    gray: 'text-gray-600',
-                    brown: 'text-amber-800',
-                    orange: 'text-orange-600',
-                    yellow: 'text-yellow-600',
-                    green: 'text-green-600',
-                    blue: 'text-blue-600',
-                    purple: 'text-purple-600',
-                    pink: 'text-pink-600',
-                    red: 'text-red-600',
-                };
-                className += ` ${colorMap[annotations.color] || ''}`;
-            }
-            
-            if (text.href) {
-                return (
-                    <a 
-                        key={index} 
-                        href={text.href} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className={`text-orange hover:text-orangeDark dark:text-green dark:hover:text-greenDark underline${className}`}
-                    >
-                        {content}
-                    </a>
-                );
-            }
-            
-            return (
-                <span key={index} className={className.trim()}>
-                    {content}
-                </span>
-            );
-        });
-    };
-
-    // Render table of contents component
-    const renderTableOfContents = () => {
-        if (tableOfContents.length === 0) return null;
-        
-        return (
-            <nav className="toc bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-8 border-l-4 border-orange dark:border-green">
-                <h2 className="text-xl font-bold mb-4">Table of Contents</h2>
-                <ul className="space-y-2">
-                    {tableOfContents.map((item) => (
-                        <li key={item.id}>
-                            <a 
-                                href={`#${item.id}`}
-                                className="text-orange hover:text-orangeDark dark:text-green dark:hover:text-greenDark hover:underline transition-colors"
-                            >
-                                {item.text}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
-        );
-    };
-
-    // Function to render Notion blocks
-    const renderNotionBlock = (block: NotionBlock, index: number) => {
-        const { type, id } = block;
-
-        // Check for #!contents directive
-        if (type === 'paragraph') {
-            const text = block.paragraph?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-            if (text.trim() === '#!contents') {
-                return renderTableOfContents();
-            }
-        }
-
-        switch (type) {
-            case 'paragraph':
-                const paragraphRichText = block.paragraph?.rich_text || [];
-                if (paragraphRichText.length === 0) return <br key={id} />;
-                return (
-                    <p key={id} className="mb-4">
-                        {renderRichText(paragraphRichText)}
-                    </p>
-                );
-
-            case 'heading_1':
-                const h1Text = block.heading_1?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                return <h1 key={id} className="text-3xl font-bold mb-4 mt-8">{h1Text}</h1>;
-
-            case 'heading_2':
-                const h2Text = block.heading_2?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                const h2Id = createAnchorId(h2Text);
-                return (
-                    <h2 
-                        key={id} 
-                        id={h2Id}
-                        className="text-2xl font-bold mb-3 mt-6 scroll-mt-20"
-                    >
-                        {h2Text}
-                    </h2>
-                );
-
-            case 'heading_3':
-                const h3Text = block.heading_3?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                return <h3 key={id} className="text-xl font-bold mb-2 mt-4">{h3Text}</h3>;
-
-            case 'bulleted_list_item':
-                const bulletText = block.bulleted_list_item?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                return <li key={id} className="mb-1 ml-6 list-disc">{bulletText}</li>;
-
-            case 'numbered_list_item':
-                const numberedText = block.numbered_list_item?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                return <li key={id} className="mb-1 ml-6 list-decimal">{numberedText}</li>;
-
-            case 'code':
-                const codeText = block.code?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                return (
-                    <pre key={id} className="bg-gray-100 p-4 rounded mb-4 overflow-x-auto">
-                        <code>{codeText}</code>
-                    </pre>
-                );
-
-            case 'quote':
-                const quoteText = block.quote?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                return (
-                    <blockquote key={id} className="border-l-4 border-blue-500 pl-4 italic mb-4 text-gray-600">
-                        {quoteText}
-                    </blockquote>
-                );
-
-            case 'image':
-                const imageUrl = block.image?.external?.url || block.image?.file?.url;
-                const caption = block.image?.caption?.map((text: any) => text.plain_text).join('') || '';
-                return (
-                    <div key={id} className="mb-4">
-                        {imageUrl && (
-                            <div className="relative w-full h-[600px]">
-                                <Image 
-                                    src={imageUrl} 
-                                    alt={caption || 'Image'}
-                                    className="object-cover rounded"
-                                    fill={true}
-                                />
-                            </div>
-                        )}
-                        {caption && <p className="caption text-sm text-gray-600 mt-2 text-center">{caption}</p>}
-                    </div>
-                );
-
-            case 'image_gallery':
-                return <ImageGallery key={id} images={block.images} />;
-
-            case 'divider':
-                return <hr key={id} className="my-8 border-b-2 border-orange dark:border-green" />;
-
-            default:
-                return (
-                    <div key={id} className="mb-4 p-2 bg-gray-50 rounded text-sm">
-                        <strong>Unsupported block type: {type}</strong>
-                        <pre className="mt-2 text-xs overflow-x-auto">
-                            {JSON.stringify(block, null, 2)}
-                        </pre>
-                    </div>
-                );
-        }
-    };
 
     if (loading) {
         return (
@@ -386,8 +116,6 @@ export default function BlogPostPage() {
         );
     }
 
-    console.log('post object:', post)
-
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl mt-[75px]">
             <nav className="mb-8">
@@ -421,7 +149,7 @@ export default function BlogPostPage() {
 
                 <div className="prose prose-lg max-w-none">
                     {post.content && post.content.length > 0 ? (
-                        post.content.map((block, index) => renderNotionBlock(block, index))
+                        post.content.map((block, index) => renderNotionBlock(block, index, tableOfContents))
                     ) : (
                         <p className="text-gray-500 italic">No content available for this post.</p>
                     )}

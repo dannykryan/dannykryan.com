@@ -8,7 +8,6 @@ import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import styles from './ImageGallery.module.css';
 
 interface ImageBlock {
     id: string;

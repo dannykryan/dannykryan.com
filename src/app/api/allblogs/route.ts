@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
     try {
-        console.log(`🔍 Fetching all blog posts`);
         
         const response = await fetch(
             `https://api.notion.com/v1/databases/${process.env.BLOG_DATABASE_ID}/query`,
@@ -43,8 +42,6 @@ export async function GET(request: NextRequest) {
             created_time: page.created_time,
             last_edited_time: page.last_edited_time,
         }));
-
-        console.log(`📝 Found ${posts.length} blog posts`);
         
         return NextResponse.json({
             success: true,
