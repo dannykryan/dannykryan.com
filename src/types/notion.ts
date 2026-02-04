@@ -13,6 +13,7 @@ export interface NotionRichText {
         code: boolean;
         color: string;
     };
+    href: string | null;
 }
 
 export interface NotionFile {
@@ -70,7 +71,7 @@ export interface NotionBlock {
     has_children: boolean;
     archived: boolean;
     // Dynamic content based on type (heading_2, paragraph, image, etc.)
-    [key: string]: any; // Keep flexible since blocks vary
+    [key: string]: any; // Kept flexible since blocks vary
 }
 
 export interface NotionPageWithContent extends NotionPage {

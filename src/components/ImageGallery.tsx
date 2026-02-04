@@ -24,7 +24,7 @@ interface ImageGalleryProps {
 
 export default function ImageGallery({ images }: ImageGalleryProps) {
     return (
-        <div className="mb-8">
+        <div className="mb-8 mt-4">
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={10}

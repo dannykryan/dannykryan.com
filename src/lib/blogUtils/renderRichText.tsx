@@ -1,18 +1,20 @@
+import { NotionRichText } from "@/types/notion";
+
 // Function to render rich text with annotations and hyperlinks
-export const renderRichText = (richTextArray: any[]) => {
+export const renderRichText = (richTextArray: NotionRichText[]) => {
     return richTextArray.map((text, index) => {
         let content = text.plain_text;
         
         const annotations = text.annotations;
         let className = '';
         
-        if (annotations.bold) className += ' font-bold';
-        if (annotations.italic) className += ' italic';
-        if (annotations.underline) className += ' underline';
-        if (annotations.strikethrough) className += ' line-through';
-        if (annotations.code) className += ' bg-gray-100 px-1 rounded text-sm font-mono';
+        if (annotations?.bold) className += ' font-bold';
+        if (annotations?.italic) className += ' italic';
+        if (annotations?.underline) className += ' underline';
+        if (annotations?.strikethrough) className += ' line-through';
+        if (annotations?.code) className += ' bg-gray-100 px-1 rounded text-sm font-mono';
         
-        if (annotations.color && annotations.color !== 'default') {
+        if (annotations?.color && annotations.color !== 'default') {
             const colorMap: { [key: string]: string } = {
                 gray: 'text-gray-600',
                 brown: 'text-amber-800',

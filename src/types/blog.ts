@@ -1,3 +1,5 @@
+import type { NotionBlock } from './notion';
+
 export interface BlogPost {
     id: string;
     title: string;
@@ -10,13 +12,6 @@ export interface BlogPost {
     created_time: string;
     last_edited_time: string;
     content: ContentBlock[];
-}
-
-export interface NotionBlock {
-    object: string;
-    id: string;
-    type: string;
-    [key: string]: any;
 }
 
 export interface ImageGalleryBlock {
@@ -32,3 +27,5 @@ export interface TOCItem {
     id: string;
     text: string;
 }
+
+export type { NotionBlock };

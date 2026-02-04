@@ -1,19 +1,22 @@
-import type { NotionBlock, TOCItem } from '@/types/blog';
-import { renderTableOfContents } from './renderTableOfContents';
+import type { TOCItem } from '@/types/blog';
+import type { NotionBlock, NotionRichText } from '@/types/notion';
 import { renderRichText } from './renderRichText';
 import { createAnchorId } from './createAnchorId';
 import Image from 'next/image';
 import ImageGallery from '@/components/ImageGallery';
+import { renderContentDirective, CONTENT_DIRECTIVES } from './renderContentDirectives';
+
 
 // Function to render Notion blocks
 export const renderNotionBlock = (block: NotionBlock, index: number, tableOfContents: TOCItem[]) => {
         const { type, id } = block;
 
-        // Check for #!contents directive
-        if (type === 'paragraph') {
-            const text = block.paragraph?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-            if (text.trim() === '#!contents') {
-                return renderTableOfContents(tableOfContents);
+        // Check for content directive
+        if (type === 'paragraph' && block.paragraph?.rich_text) {
+            const text = block.paragraph.rich_text.map((t: NotionRichText) => t.plain_text).join('').trim();
+            
+            if (text === CONTENT_DIRECTIVES.TABLE_OF_CONTENTS) {
+                return renderContentDirective(text, { tableOfContents });
             }
         }
 
@@ -28,36 +31,36 @@ export const renderNotionBlock = (block: NotionBlock, index: number, tableOfCont
                 );
 
             case 'heading_1':
-                const h1Text = block.heading_1?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+                const h1Text = block.heading_1?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return <h1 key={id} className="text-3xl font-bold mb-4 mt-8">{h1Text}</h1>;
 
             case 'heading_2':
-                const h2Text = block.heading_2?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+                const h2Text = block.heading_2?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 const h2Id = createAnchorId(h2Text);
                 return (
                     <h2 
                         key={id} 
                         id={h2Id}
-                        className="text-2xl font-bold mb-3 mt-6 scroll-mt-20"
+                        className="text-2xl font-bold mb-4 mt-6 scroll-mt-20"
                     >
                         {h2Text}
                     </h2>
                 );
 
             case 'heading_3':
-                const h3Text = block.heading_3?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+                const h3Text = block.heading_3?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return <h3 key={id} className="text-xl font-bold mb-2 mt-4">{h3Text}</h3>;
 
             case 'bulleted_list_item':
-                const bulletText = block.bulleted_list_item?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+                const bulletText = block.bulleted_list_item?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return <li key={id} className="mb-1 ml-6 list-disc">{bulletText}</li>;
 
             case 'numbered_list_item':
-                const numberedText = block.numbered_list_item?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+                const numberedText = block.numbered_list_item?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return <li key={id} className="mb-1 ml-6 list-decimal">{numberedText}</li>;
 
             case 'code':
-                const codeText = block.code?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+                const codeText = block.code?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return (
                     <pre key={id} className="bg-gray-100 p-4 rounded mb-4 overflow-x-auto">
                         <code>{codeText}</code>
@@ -65,7 +68,7 @@ export const renderNotionBlock = (block: NotionBlock, index: number, tableOfCont
                 );
 
             case 'quote':
-                const quoteText = block.quote?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+                const quoteText = block.quote?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return (
                     <blockquote key={id} className="border-l-4 border-blue-500 pl-4 italic mb-4 text-gray-600">
                         {quoteText}
@@ -74,9 +77,9 @@ export const renderNotionBlock = (block: NotionBlock, index: number, tableOfCont
 
             case 'image':
                 const imageUrl = block.image?.external?.url || block.image?.file?.url;
-                const caption = block.image?.caption?.map((text: any) => text.plain_text).join('') || '';
+                const caption = block.image?.caption?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return (
-                    <div key={id} className="mb-4">
+                    <div key={id} className="mb-8 mt-4">
                         {imageUrl && (
                             <div className="relative w-full h-[600px]">
                                 <Image 
