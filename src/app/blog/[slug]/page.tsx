@@ -25,7 +25,7 @@ interface NotionBlock {
     object: string;
     id: string;
     type: string;
-    [key: string]: any; // For different block types
+    [key: string]: any;
 }
 
 interface ImageGalleryBlock {
@@ -48,6 +48,11 @@ interface ApiError {
     details?: string;
 }
 
+interface TOCItem {
+    id: string;
+    text: string;
+}
+
 export default function BlogPostPage() {
     const params = useParams();
     const slug = params.slug as string;
@@ -55,6 +60,7 @@ export default function BlogPostPage() {
     const [post, setPost] = useState<BlogPost | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [tableOfContents, setTableOfContents] = useState<TOCItem[]>([]);
 
     useEffect(() => {
         const fetchPost = async (): Promise<void> => {
@@ -80,7 +86,13 @@ export default function BlogPostPage() {
                 if (data.success) {
                     data.result.content = groupConsecutiveImages(data.result.content);
                     setPost(data.result);
+                    
+                    // Extract H2 headings for table of contents
+                    const tocItems = extractTableOfContents(data.result.content);
+                    setTableOfContents(tocItems);
+                    
                     console.log('📄 Post content:', data.result.content);
+                    console.log('📑 Table of Contents:', tocItems);
                 } else if ('error' in data) {
                     throw new Error(data.error || 'Failed to fetch post');
                 } else {
@@ -100,16 +112,41 @@ export default function BlogPostPage() {
         }
     }, [slug]);
 
+    // Helper function to create URL-safe ID from text
+    const createAnchorId = (text: string): string => {
+        return text
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+    };
+
+    // Extract H2 headings for table of contents
+    const extractTableOfContents = (blocks: ContentBlock[]): TOCItem[] => {
+        const toc: TOCItem[] = [];
+        
+        blocks.forEach((block) => {
+            if (block.type === 'heading_2') {
+                const h2Text = block.heading_2?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+                if (h2Text) {
+                    toc.push({
+                        id: createAnchorId(h2Text),
+                        text: h2Text
+                    });
+                }
+            }
+        });
+        
+        return toc;
+    };
+
     const groupConsecutiveImages = (blocks: ContentBlock[]) => {
         const grouped: ContentBlock[] = [];
         let imageGroup = [] as NotionBlock[];
 
-        // for each image block in array, if next block is also image, group them in an array, else leave as a block
         blocks.forEach((block) => {
             if (block.type === 'image') {
                 imageGroup.push(block);
             } else {
-                // Finalize any accumulated images
                 if (imageGroup.length > 1) {
                     grouped.push({
                         object: 'block',
@@ -125,7 +162,6 @@ export default function BlogPostPage() {
             }
         });
 
-        // Handle remaining images at the end
         if (imageGroup.length > 1) {
             grouped.push({
                 object: 'block',
@@ -135,17 +171,15 @@ export default function BlogPostPage() {
         } else if (imageGroup.length === 1) {
             grouped.push(imageGroup[0]);
         }
-            return grouped;
+        return grouped;
     };
 
     const renderRichText = (richTextArray: any[]) => {
         return richTextArray.map((text, index) => {
             let content = text.plain_text;
             
-            // Apply annotations (styling)
             const annotations = text.annotations;
             let className = '';
-            let styles: React.CSSProperties = {};
             
             if (annotations.bold) className += ' font-bold';
             if (annotations.italic) className += ' italic';
@@ -153,7 +187,6 @@ export default function BlogPostPage() {
             if (annotations.strikethrough) className += ' line-through';
             if (annotations.code) className += ' bg-gray-100 px-1 rounded text-sm font-mono';
             
-            // Handle colors
             if (annotations.color && annotations.color !== 'default') {
                 const colorMap: { [key: string]: string } = {
                     gray: 'text-gray-600',
@@ -169,7 +202,6 @@ export default function BlogPostPage() {
                 className += ` ${colorMap[annotations.color] || ''}`;
             }
             
-            // Handle links
             if (text.href) {
                 return (
                     <a 
@@ -184,7 +216,6 @@ export default function BlogPostPage() {
                 );
             }
             
-            // Return styled text
             return (
                 <span key={index} className={className.trim()}>
                     {content}
@@ -193,14 +224,45 @@ export default function BlogPostPage() {
         });
     };
 
+    // Render table of contents component
+    const renderTableOfContents = () => {
+        if (tableOfContents.length === 0) return null;
+        
+        return (
+            <nav className="toc bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-8 border-l-4 border-orange dark:border-green">
+                <h2 className="text-xl font-bold mb-4">Table of Contents</h2>
+                <ul className="space-y-2">
+                    {tableOfContents.map((item) => (
+                        <li key={item.id}>
+                            <a 
+                                href={`#${item.id}`}
+                                className="text-orange hover:text-orangeDark dark:text-green dark:hover:text-greenDark hover:underline transition-colors"
+                            >
+                                {item.text}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        );
+    };
+
     // Function to render Notion blocks
-    const renderNotionBlock = (block: NotionBlock) => {
+    const renderNotionBlock = (block: NotionBlock, index: number) => {
         const { type, id } = block;
+
+        // Check for #!contents directive
+        if (type === 'paragraph') {
+            const text = block.paragraph?.rich_text?.map((text: any) => text.plain_text).join('') || '';
+            if (text.trim() === '#!contents') {
+                return renderTableOfContents();
+            }
+        }
 
         switch (type) {
             case 'paragraph':
                 const paragraphRichText = block.paragraph?.rich_text || [];
-                if (paragraphRichText.length === 0) return <br key={id} />; // Empty paragraph = line break
+                if (paragraphRichText.length === 0) return <br key={id} />;
                 return (
                     <p key={id} className="mb-4">
                         {renderRichText(paragraphRichText)}
@@ -213,7 +275,16 @@ export default function BlogPostPage() {
 
             case 'heading_2':
                 const h2Text = block.heading_2?.rich_text?.map((text: any) => text.plain_text).join('') || '';
-                return <h2 key={id} className="text-2xl font-bold mb-3 mt-6">{h2Text}</h2>;
+                const h2Id = createAnchorId(h2Text);
+                return (
+                    <h2 
+                        key={id} 
+                        id={h2Id}
+                        className="text-2xl font-bold mb-3 mt-6 scroll-mt-20"
+                    >
+                        {h2Text}
+                    </h2>
+                );
 
             case 'heading_3':
                 const h3Text = block.heading_3?.rich_text?.map((text: any) => text.plain_text).join('') || '';
@@ -269,7 +340,6 @@ export default function BlogPostPage() {
                 return <hr key={id} className="my-8 border-b-2 border-orange dark:border-green" />;
 
             default:
-                // For unsupported block types, show the raw data
                 return (
                     <div key={id} className="mb-4 p-2 bg-gray-50 rounded text-sm">
                         <strong>Unsupported block type: {type}</strong>
@@ -351,7 +421,7 @@ export default function BlogPostPage() {
 
                 <div className="prose prose-lg max-w-none">
                     {post.content && post.content.length > 0 ? (
-                        post.content.map((block) => renderNotionBlock(block))
+                        post.content.map((block, index) => renderNotionBlock(block, index))
                     ) : (
                         <p className="text-gray-500 italic">No content available for this post.</p>
                     )}
