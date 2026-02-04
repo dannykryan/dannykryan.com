@@ -1,6 +1,6 @@
 import type { BlogPost } from '@/types/blog';
 import { groupConsecutiveImages } from './groupConsecutiveImages';
-import { getBaseUrl } from './getBaseUrl';
+import { getBaseUrl } from '@/lib/blogUtils/getBaseUrl';
 
 interface ApiResponse {
     success: boolean;
@@ -9,10 +9,16 @@ interface ApiResponse {
 
 export async function fetchPost(slug: string): Promise<BlogPost | null> {
     try {
-        const url = `${getBaseUrl()}/api/post/${slug}`;
+        const baseUrl = getBaseUrl();
+        const url = `${baseUrl}/api/post/${slug}`;
+        console.log('[fetchPost] URL:', url);
+        
         const response = await fetch(url, { cache: 'no-store' });
 
-        if (!response.ok) return null;
+        if (!response.ok) {
+            console.error(`[fetchPost] Failed: ${response.status}`, await response.text());
+            return null;
+        }
 
         const data: ApiResponse = await response.json();
 
@@ -27,7 +33,7 @@ export async function fetchPost(slug: string): Promise<BlogPost | null> {
 
         return null;
     } catch (error) {
-        console.error('Error fetching post:', error);
+        console.error('[fetchPost] Error:', error);
         return null;
     }
 }
