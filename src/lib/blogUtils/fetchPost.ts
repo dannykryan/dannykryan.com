@@ -1,5 +1,6 @@
 import type { BlogPost } from '@/types/blog';
 import { groupConsecutiveImages } from './groupConsecutiveImages';
+import { getBaseUrl } from '@/lib/blogUtils/getBaseUrl';
 
 interface ApiResponse {
     success: boolean;
@@ -8,7 +9,7 @@ interface ApiResponse {
 
 export async function fetchPost(slug: string): Promise<BlogPost | null> {
     try {
-        const url = `/api/post/${slug}`;
+        const url = `${getBaseUrl()}/api/post/${slug}`;
         console.log('[fetchPost] URL:', url);
         
         const response = await fetch(url, { cache: 'no-store' });

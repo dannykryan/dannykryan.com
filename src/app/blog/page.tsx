@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
+import { getBaseUrl } from '@/lib/blogUtils/getBaseUrl';
 
 export const metadata: Metadata = {
   title: 'Blog | Danny Ryan',
@@ -51,7 +52,7 @@ interface ApiResponse {
 export const dynamic = 'force-dynamic';
 
 async function fetchPosts(): Promise<BlogPost[]> {
-  const res = await fetch(`/api/allblogs`, { cache: 'no-store' });
+  const res = await fetch(`${getBaseUrl()}/api/allblogs`, { cache: 'no-store' });  // Use absolute URL
   if (!res.ok) return [];
   const data: ApiResponse = await res.json();
   return data.success ? data.results : [];
