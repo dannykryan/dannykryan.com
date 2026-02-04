@@ -1,14 +1,14 @@
-import type { TOCItem } from '@/types/blog';
-import type { NotionBlock, NotionRichText } from '@/types/notion';
+import type { ContentBlock, TOCItem } from '@/types/blog';
+import type { NotionRichText } from '@/types/notion';
 import { renderRichText } from './renderRichText';
 import { createAnchorId } from './createAnchorId';
 import Image from 'next/image';
-import ImageGallery from '@/components/ImageGallery';
+import ImageGallery from '@/components/blog/ImageGallery';
 import { renderContentDirective, CONTENT_DIRECTIVES } from './renderContentDirectives';
 
 
 // Function to render Notion blocks
-export const renderNotionBlock = (block: NotionBlock, index: number, tableOfContents: TOCItem[]) => {
+export const renderNotionBlock = (block: ContentBlock, index: number, tableOfContents: TOCItem[]) => {
         const { type, id } = block;
 
         // Check for content directive

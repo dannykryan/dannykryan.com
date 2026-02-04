@@ -1,5 +1,5 @@
 import type { TOCItem } from '@/types/blog';
-import { renderTableOfContents } from './renderTableOfContents';
+import { renderTableOfContents } from '../../components/blog/tableOfContents';
 
 export const CONTENT_DIRECTIVES = {
     TABLE_OF_CONTENTS: '#!contents',
