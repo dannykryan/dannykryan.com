@@ -1,139 +1,97 @@
-"use client"
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Blog | Danny Ryan',
+  description: 'Web development insights, tutorials, and personal projects from Danny Ryan.',
+  openGraph: {
+    title: 'Blog | Danny Ryan',
+    description: 'Web development insights, tutorials, and personal projects from Danny Ryan.',
+    url: 'https://www.dannykryan.com/blog',
+    siteName: 'Danny Ryan Portfolio',
+    images: [
+      {
+        url: '/dannykryan-screenshot.png',
+        width: 1200,
+        height: 630,
+        alt: 'Danny Ryan Blog',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog | Danny Ryan',
+    description: 'Web development insights, tutorials, and personal projects.',
+  },
+};
 
 // Type definitions
 interface BlogPost {
-    id: string;
-    title: string;
-    slug: string;
-    category: string;
-    publishDate: string;
-    featuredImage: string | null;
-    tags: string[];
-    url: string;
-    created_time: string;
-    last_edited_time: string;
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
+  category: string;
+  publishDate: string;
+  featuredImage: string | null;
+  tags: string[];
+  url: string;
+  created_time: string;
+  last_edited_time: string;
 }
 
 interface ApiResponse {
-    success: boolean;
-    count: number;
-    results: BlogPost[];
-    error: string;
+  success: boolean;
+  count: number;
+  results: BlogPost[];
 }
 
-interface ApiError {
-    success: false;
-    error: string;
-    details?: string;
+export const dynamic = 'force-dynamic';
+
+async function fetchPosts(): Promise<BlogPost[]> {
+  const res = await fetch('http://localhost:3000/api/allblogs', { cache: 'no-store' });
+  if (!res.ok) return [];
+  const data: ApiResponse = await res.json();
+  return data.success ? data.results : [];
 }
 
-interface FeaturedImage {
-    url: string;
-    alt: string;
-}
+export default async function BlogPage() {
+  const posts = await fetchPosts();
 
-export default function BlogPage() {
-    const [posts, setPosts] = useState<BlogPost[]>([]);
-    const [featuredImages, setFeaturedImages] = useState<FeaturedImage[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchPosts = async (): Promise<void> => {
-            try {
-                setLoading(true);
-                setError(null);
-
-                const apiUrl = process.env.NODE_ENV === 'production'
-                    ? '/api/allblogs'
-                    : 'http://localhost:5000/allblogs';
-                
-                const response = await fetch(apiUrl);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data: ApiResponse | ApiError = await response.json();
-                
-                if (data.success) {
-                    setPosts(data.results);
-                } else {
-                    throw new Error(data.error || 'Failed to fetch posts');
-                }
-                
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching posts:', error);
-                setError(error instanceof Error ? error.message : 'An unknown error occurred');
-                setLoading(false);
-            }
-        };
-
-        fetchPosts();
-    }, []);
-
-    useEffect(() => {
-        const images = posts
-            .filter(post => post.featuredImage)
-            .map(post => ({
-                url: post.featuredImage as string,
-                alt: post.title
-            }));
-        setFeaturedImages(images);
-    }, [posts]);
-
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div>Loading blog posts...</div>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="text-red-500">Error: {error}</div>
-            </div>
-        );
-    }
-
-    return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-8 mt-[75px]">Latest Blog Posts ({posts.length})</h1>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post: BlogPost, index) => (
-                    <div key={post.id} className="blog-post-card border rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                        <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-                        <p className="text-sm text-gray-600 mb-1">Category: {post.category}</p>
-                        <p className="text-sm text-gray-600 mb-2">Published: {new Date(post.publishDate).toLocaleDateString()}</p>
-                        <p className="text-sm mb-4">Tags: {post.tags.join(', ')}</p>
-                        {post.featuredImage && (
-                            <div className="relative w-full h-[300px] mb-4">
-                                <Image 
-                                    src={post.featuredImage} 
-                                    alt={post.title}
-                                    className="object-cover rounded"
-                                    fill={true}
-                                    priority={index === 0}  // Only first image is priority
-                                    quality={75}
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                />
-                            </div>
-                        )}
-                        <Link 
-                            href={`/blog/${post.slug}`}
-                            className="inline-block bg-orange dark:bg-green text-white px-4 py-2 rounded hover:bg-orangeDark dark:hover:bg-greenDark transition-colors"
-                        >
-                            Read more →
-                        </Link>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8 mt-[75px]">Latest Blog Posts ({posts.length})</h1>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post, index) => (
+          <div key={post.id} className="blog-post-card border rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+            <p className="text-sm text-gray-600 mb-1">Category: {post.category}</p>
+            <p className="text-sm text-gray-600 mb-2">Published: {new Date(post.publishDate).toLocaleDateString()}</p>
+            <p className="text-sm mb-4">Tags: {post.tags.join(', ')}</p>
+            {post.featuredImage && (
+              <div className="relative w-full h-[300px] mb-4">
+                <Image
+                  src={post.featuredImage}
+                  alt={post.title}
+                  className="object-cover rounded"
+                  fill={true}
+                  priority={index === 0}
+                  quality={75}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </div>
+            )}
+            <Link
+              href={`/blog/${post.slug}`}
+              className="inline-block bg-orange dark:bg-green text-white px-4 py-2 rounded hover:bg-orangeDark dark:hover:bg-greenDark transition-colors"
+            >
+              Read more →
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

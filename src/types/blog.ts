@@ -3,6 +3,7 @@ import type { NotionBlock } from './notion';
 export interface BlogPost {
     id: string;
     title: string;
+    description: string;
     slug: string;
     category: string;
     publishDate: string;

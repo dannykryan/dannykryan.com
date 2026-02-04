@@ -44,6 +44,9 @@ export interface NotionPage {
         Title: {
             title: NotionRichText[];
         };
+        Description: {
+            rich_text: NotionRichText[];
+        };
         'URL Slug': {
             rich_text: NotionRichText[];
         };

@@ -9,7 +9,7 @@ export async function GET(
         const { slug } = params;
         
         const response = await fetch(
-            `https://api.notion.com/v1/databases/${process.env.BLOG_DATABASE_ID}/query`,
+            `https://api.notion.com/v1/databases/${process.env.NEXT_PUBLIC_BLOG_DATABASE_ID}/query`,
             {
                 method: 'POST',
                 headers: {
@@ -71,10 +71,13 @@ export async function GET(
             hasMore = contentData.has_more;
             startCursor = contentData.next_cursor ?? undefined;
         }
+
+        console.log('Available properties:', Object.keys(page.properties));
         
         const cleanedPage = {
             id: page.id,
             title: page.properties.Title.title[0]?.plain_text || 'Untitled',
+            description: page.properties.Description?.rich_text?.[0]?.plain_text || '',
             slug: page.properties['URL Slug'].rich_text[0]?.plain_text || '',
             category: page.properties.Category.select?.name || '',
             publishDate: page.properties['Publish Date'].date?.start || '',
@@ -85,10 +88,18 @@ export async function GET(
             last_edited_time: page.last_edited_time,
             content: allBlocks
         };
+
+        console.log('API cleanedPage keys:', Object.keys(cleanedPage));
         
         return NextResponse.json({
             success: true,
-            result: cleanedPage
+            result: cleanedPage,
+            debug: {
+                availableProperties: Object.keys(page.properties),
+                cleanedPageKeys: Object.keys(cleanedPage),
+                hasDescription: !!page.properties.Description,
+                descriptionValue: page.properties.Description?.rich_text?.[0]?.plain_text,
+            }
         });
         
     } catch (error) {

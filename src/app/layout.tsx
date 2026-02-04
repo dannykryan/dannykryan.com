@@ -10,6 +10,7 @@ import SmoothScroll from '@/components/SmoothScroll';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.dannykryan.com'),
   title: `Danny Ryan | Web Developer`,
   description: 'A website for web developer, Danny Ryan.',
   openGraph: {

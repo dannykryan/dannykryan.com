@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
     try {
         
         const response = await fetch(
-            `https://api.notion.com/v1/databases/${process.env.BLOG_DATABASE_ID}/query`,
+            `https://api.notion.com/v1/databases/${process.env.NEXT_PUBLIC_BLOG_DATABASE_ID}/query`,
             {
                 method: 'POST',
                 headers: {
@@ -31,9 +31,12 @@ export async function GET(request: NextRequest) {
 
         const data = await response.json();
 
+        console.log('properties on data', data.results[0]?.properties ? Object.keys(data.results[0].properties) : 'No results');
+
         const posts = data.results.map((page: NotionPage) => ({
             id: page.id,
             title: page.properties.Title.title[0]?.plain_text || 'Untitled',
+            description: page.properties.Description?.rich_text[0]?.plain_text || '',
             slug: page.properties['URL Slug'].rich_text[0]?.plain_text || '',
             category: page.properties.Category.select?.name || '',
             publishDate: page.properties['Publish Date'].date?.start || '',

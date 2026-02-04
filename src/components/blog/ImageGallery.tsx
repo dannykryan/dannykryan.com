@@ -43,7 +43,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                         <SwiperSlide key={block.id}>
                             <div className="relative w-full h-[600px]">
                                 <Image
-                                    src={imageUrl}
+                                    src={`/api/notion-image/${block.id}`}
                                     alt={caption || 'Gallery image'}
                                     className="object-cover rounded"
                                     fill={true}

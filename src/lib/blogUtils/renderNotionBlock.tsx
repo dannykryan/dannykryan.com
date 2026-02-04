@@ -83,7 +83,7 @@ export const renderNotionBlock = (block: ContentBlock, index: number, tableOfCon
                         {imageUrl && (
                             <div className="relative w-full h-[600px]">
                                 <Image 
-                                    src={imageUrl} 
+                                    src={`/api/notion-image/${block.id}`} 
                                     alt={caption || 'Image'}
                                     className="object-cover rounded"
                                     fill={true}
