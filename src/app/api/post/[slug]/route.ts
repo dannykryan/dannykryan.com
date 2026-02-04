@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { NotionBlock, NotionMultiSelect } from '@/types/notion';
 
 export async function GET(
     request: NextRequest,
@@ -44,7 +45,7 @@ export async function GET(
         const page = data.results[0];
         
         // Fetch ALL blocks with pagination
-        let allBlocks = [];
+        let allBlocks: NotionBlock[] = [];
         let hasMore = true;
         let startCursor: string | undefined = undefined;
 
@@ -78,7 +79,7 @@ export async function GET(
             category: page.properties.Category.select?.name || '',
             publishDate: page.properties['Publish Date'].date?.start || '',
             featuredImage: page.properties['Featured Image URL'].files[0]?.file.url || null,
-            tags: page.properties.Tags.multi_select.map((tag: any) => tag.name),
+            tags: page.properties.Tags.multi_select.map((tag: NotionMultiSelect) => tag.name),
             url: page.url,
             created_time: page.created_time,
             last_edited_time: page.last_edited_time,

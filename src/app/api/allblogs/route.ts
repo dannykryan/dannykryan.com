@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { NotionPage } from '@/types/notion';
 
 export async function GET(request: NextRequest) {
     try {
@@ -30,14 +31,14 @@ export async function GET(request: NextRequest) {
 
         const data = await response.json();
 
-        const posts = data.results.map((page: any) => ({
+        const posts = data.results.map((page: NotionPage) => ({
             id: page.id,
             title: page.properties.Title.title[0]?.plain_text || 'Untitled',
             slug: page.properties['URL Slug'].rich_text[0]?.plain_text || '',
             category: page.properties.Category.select?.name || '',
             publishDate: page.properties['Publish Date'].date?.start || '',
             featuredImage: page.properties['Featured Image URL'].files[0]?.file.url || null,
-            tags: page.properties.Tags.multi_select.map((tag: any) => tag.name),
+            tags: page.properties.Tags.multi_select.map((tag) => tag.name),
             url: page.url,
             created_time: page.created_time,
             last_edited_time: page.last_edited_time,
