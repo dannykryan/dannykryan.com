@@ -9,17 +9,20 @@
     overscroll-behavior-y: contain;
   }
   body {
-    @apply bg-offWhiteLight dark:bg-charcoal text-charcoal dark:text-offWhiteLight;
+    @apply dark:bg-charcoal text-charcoal dark:text-white transition-colors duration-300;
+  }
+  a {
+    @apply no-underline;
   }
 }
 
 @layer components {
   .menuLink {
-    @apply cursor-pointer hover:text-orange dark:hover:text-green transition-colors duration-200;
+    @apply text-charcoal dark:text-white cursor-pointer hover:text-orange dark:hover:text-green transition-colors duration-300;
   }
 
   .navbar-button-icon {
-    @apply transition-colors duration-300;
+    @apply text-charcoal dark:text-white transition-colors duration-300;
   }
 
   .navbar-button:hover .navbar-button-icon {

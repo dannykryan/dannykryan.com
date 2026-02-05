@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import BackToTop from '@/components/blog/BackToTop';
 
 // Import helper functions
 import { extractTableOfContents } from '@/lib/blogUtils/extractTableOfContents';
@@ -32,7 +33,7 @@ export async function generateMetadata(
 
     return {
         title: post.title,
-        description: `Published on ${new Date(post.publishDate).toLocaleDateString()}`,
+        description: post.description || `${post.category} - ${post.tags.join(', ')}`,
         openGraph: {
             title: post.title,
             description: post.description || `${post.category} - ${post.tags.join(', ')}`,
@@ -94,7 +95,7 @@ export default async function BlogPostPage(
                         </div>
                     )}
                     <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-                    <div className="metadata flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
+                    <div className="metadata flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300 mb-6">
                         <span>Category: {post.category}</span>
                         <span>Published: {new Date(post.publishDate).toLocaleDateString()}</span>
                         <span>Tags: {post.tags.join(', ')}</span>
@@ -115,6 +116,7 @@ export default async function BlogPostPage(
                     </Link>
                 </div>
             </article>
+            <BackToTop />
         </div>
     );
 }

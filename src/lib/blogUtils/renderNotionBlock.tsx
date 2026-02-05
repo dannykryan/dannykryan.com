@@ -62,7 +62,7 @@ export const renderNotionBlock = (block: ContentBlock, index: number, tableOfCon
             case 'code':
                 const codeText = block.code?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return (
-                    <pre key={id} className="bg-gray-100 p-4 rounded mb-4 overflow-x-auto">
+                    <pre key={id} className="bg-gray-100 p-4 rounded mb-4 overflow-x-auto transition-colors duration-300">
                         <code>{codeText}</code>
                     </pre>
                 );
@@ -70,7 +70,7 @@ export const renderNotionBlock = (block: ContentBlock, index: number, tableOfCon
             case 'quote':
                 const quoteText = block.quote?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
                 return (
-                    <blockquote key={id} className="border-l-4 border-blue-500 pl-4 italic mb-4 text-gray-600">
+                    <blockquote key={id} className="border-l-4 border-orange dark:border-green pl-4 italic mb-4 text-gray-600 dark:text-gray-400 transition-colors duration-300">
                         {quoteText}
                     </blockquote>
                 );
@@ -98,7 +98,7 @@ export const renderNotionBlock = (block: ContentBlock, index: number, tableOfCon
                 return <ImageGallery key={id} images={block.images} />;
 
             case 'divider':
-                return <hr key={id} className="my-8 border-b-2 border-orange dark:border-green" />;
+                return <hr key={id} className="my-8 border-b-2 border-orange dark:border-green transition-colors duration-300" />;
 
             default:
                 return (
