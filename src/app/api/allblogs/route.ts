@@ -33,8 +33,6 @@ export async function GET(request: NextRequest) {
 
         const data = await response.json();
 
-        console.log('properties on data', data.results[0]?.properties ? Object.keys(data.results[0].properties) : 'No results');
-
         const posts = data.results.map((page: NotionPage) => ({
             id: page.id,
             title: page.properties.Title.title[0]?.plain_text || 'Untitled',

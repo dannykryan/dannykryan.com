@@ -55,18 +55,16 @@ async function fetchPosts(): Promise<BlogPost[]> {
   try {
     const baseUrl = getBaseUrl();
     const url = `${baseUrl}/api/allblogs`;
-    console.log('[fetchPosts] URL:', url);
     
     const res = await fetch(url, { cache: 'no-store' });
-    console.log('[fetchPosts] Response status:', res.status);
-    
+
     if (!res.ok) {
       console.error('[fetchPosts] Failed:', res.status, await res.text());
       return [];
     }
     
     const data: ApiResponse = await res.json();
-    console.log('[fetchPosts] Data:', data);
+
     return data.success ? data.results : [];
   } catch (error) {
     console.error('[fetchPosts] Error:', error);

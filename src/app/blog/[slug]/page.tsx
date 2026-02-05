@@ -24,9 +24,6 @@ export async function generateMetadata(
         return { title: 'Post Not Found' };
     }
 
-    console.log('post keys:', Object.keys(post));
-    console.log('post description:', post.description);
-
     const imageUrl = post.featuredImage 
         ? `https://www.dannykryan.com/api/notion-featured-image/${post.id}` 
         : undefined;
@@ -63,9 +60,6 @@ export default async function BlogPostPage(
     { params }: { params: { slug: string } }
 ) {
     const post = await fetchPost(params.slug);
-
-    console.log('Fetched post keys count:', Object.keys(post ?? {}).length);
-    console.log('Fetched post content count:', post?.content?.length ?? 0);
 
     if (!post) {
         notFound();

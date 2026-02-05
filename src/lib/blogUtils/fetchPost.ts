@@ -10,7 +10,6 @@ interface ApiResponse {
 export async function fetchPost(slug: string): Promise<BlogPost | null> {
     try {
         const url = `${getBaseUrl()}/api/post/${slug}`;
-        console.log('[fetchPost] URL:', url);
         
         const response = await fetch(url, { cache: 'no-store' });
 

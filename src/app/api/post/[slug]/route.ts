@@ -74,8 +74,6 @@ export async function GET(
             startCursor = contentData.next_cursor ?? undefined;
         }
 
-        console.log('Available properties:', Object.keys(page.properties));
-        
         const cleanedPage = {
             id: page.id,
             title: page.properties.Title.title[0]?.plain_text || 'Untitled',
@@ -90,8 +88,6 @@ export async function GET(
             last_edited_time: page.last_edited_time,
             content: allBlocks
         };
-
-        console.log('API cleanedPage keys:', Object.keys(cleanedPage));
         
         return NextResponse.json({
             success: true,
