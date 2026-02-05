@@ -73,7 +73,9 @@ async function fetchPosts(): Promise<BlogPost[]> {
 }
 
 export default async function BlogPage() {
-  const posts = await fetchPosts();
+    const allPosts = await fetchPosts();
+    const posts = allPosts.filter(post => post.publishDate && new Date(post.publishDate) <= new Date())
+        .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
   return (
     <div className="container mx-auto px-4 py-8">

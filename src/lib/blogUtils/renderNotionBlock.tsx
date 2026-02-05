@@ -25,14 +25,14 @@ export const renderNotionBlock = (block: ContentBlock, index: number, tableOfCon
                 const paragraphRichText = block.paragraph?.rich_text || [];
                 if (paragraphRichText.length === 0) return <br key={id} />;
                 return (
-                    <p key={id} className="mb-4">
+                    <p key={id} className="text-base md:text-lg mb-4">
                         {renderRichText(paragraphRichText)}
                     </p>
                 );
 
             case 'heading_1':
                 const h1Text = block.heading_1?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
-                return <h1 key={id} className="text-3xl font-bold mb-4 mt-8">{h1Text}</h1>;
+                return <h1 key={id} className="text-2xl md:text-3xl font-bold mb-4 mt-8">{h1Text}</h1>;
 
             case 'heading_2':
                 const h2Text = block.heading_2?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
@@ -41,7 +41,7 @@ export const renderNotionBlock = (block: ContentBlock, index: number, tableOfCon
                     <h2 
                         key={id} 
                         id={h2Id}
-                        className="text-2xl font-bold mb-4 mt-6 scroll-mt-20"
+                        className="text-xl md:text-2xl font-bold mb-4 mt-6 scroll-mt-20"
                     >
                         {h2Text}
                     </h2>
@@ -49,7 +49,7 @@ export const renderNotionBlock = (block: ContentBlock, index: number, tableOfCon
 
             case 'heading_3':
                 const h3Text = block.heading_3?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';
-                return <h3 key={id} className="text-xl font-bold mb-2 mt-4">{h3Text}</h3>;
+                return <h3 key={id} className="text-lg md:text-xl font-bold mb-2 mt-4">{h3Text}</h3>;
 
             case 'bulleted_list_item':
                 const bulletText = block.bulleted_list_item?.rich_text?.map((text: NotionRichText) => text.plain_text).join('') || '';

@@ -41,7 +41,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                     
                     return (
                         <SwiperSlide key={block.id}>
-                            <div className="relative w-full h-[600px]">
+                            <div className="relative w-full h-[250px] md:h-[400px] lg:h-[600px]">
                                 <Image
                                     src={`/api/notion-image/${block.id}`}
                                     alt={caption || 'Gallery image'}
