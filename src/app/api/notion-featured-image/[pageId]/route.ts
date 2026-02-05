@@ -13,6 +13,7 @@ export async function GET(
                 'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
                 'Notion-Version': '2022-06-28',
             },
+            cache: 'no-store',
         });
 
         if (!response.ok) {
@@ -30,7 +31,7 @@ export async function GET(
         }
 
         // Fetch the actual image
-        const imageResponse = await fetch(featuredImageUrl);
+        const imageResponse = await fetch(featuredImageUrl, { cache: 'no-store' });
 
         if (!imageResponse.ok) {
             return new NextResponse('Failed to fetch image', { status: imageResponse.status });
@@ -42,7 +43,7 @@ export async function GET(
         return new NextResponse(blob, {
             headers: {
                 'Content-Type': contentType,
-                'Cache-Control': 'public, max-age=3000', // Cache for ~50 minutes
+                'Cache-Control': 'public, max-age=60, stale-while-revalidate=300', // Cache for 1 minute, allow stale for 5 minutes
             },
         });
     } catch (error) {
