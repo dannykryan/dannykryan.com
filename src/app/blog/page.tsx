@@ -49,14 +49,14 @@ interface ApiResponse {
   results: BlogPost[];
 }
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Revalidate every 1 hour
 
 async function fetchPosts(): Promise<BlogPost[]> {
   try {
     const baseUrl = getBaseUrl();
     const url = `${baseUrl}/api/allblogs`;
     
-    const res = await fetch(url, { cache: 'no-store' });
+    const res = await fetch(url);
 
     if (!res.ok) {
       console.error('[fetchPosts] Failed:', res.status, await res.text());

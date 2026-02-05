@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(
     request: NextRequest,
     { params }: { params: { pageId: string } }
@@ -43,7 +45,7 @@ export async function GET(
         return new NextResponse(blob, {
             headers: {
                 'Content-Type': contentType,
-                'Cache-Control': 'public, max-age=60, stale-while-revalidate=300', // Cache for 1 minute, allow stale for 5 minutes
+                'Cache-Control': 'public, max-age=2400, stale-while-revalidate=600, must-revalidate', // Cache for 40 minutes, allow stale for 10 minutes
             },
         });
     } catch (error) {

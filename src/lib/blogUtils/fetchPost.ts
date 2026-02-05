@@ -11,7 +11,7 @@ export async function fetchPost(slug: string): Promise<BlogPost | null> {
     try {
         const url = `${getBaseUrl()}/api/post/${slug}`;
         
-        const response = await fetch(url, { cache: 'no-store' });
+        const response = await fetch(url);
 
         if (!response.ok) {
             console.error(`[fetchPost] Failed: ${response.status}`, await response.text());

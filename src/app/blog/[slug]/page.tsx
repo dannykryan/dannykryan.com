@@ -11,8 +11,7 @@ import { renderNotionBlock } from '@/lib/blogUtils/renderNotionBlock';
 import { fetchPost } from '@/lib/blogUtils/fetchPost';
 
 // Force dynamic rendering and no caching
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 3600; // Revalidate every 1 hour
 
 // Generate metadata for SEO
 export async function generateMetadata(

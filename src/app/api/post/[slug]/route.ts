@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { NotionBlock, NotionMultiSelect } from '@/types/notion';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Revalidate every 1 hour
 
 export async function GET(
     request: NextRequest,
