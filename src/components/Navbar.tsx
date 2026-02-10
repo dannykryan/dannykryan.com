@@ -21,10 +21,9 @@ const Navbar = () => {
           </Link>
           <div className="hidden md:flex items-center gap-4">
             <ul className="flex gap-10 lg:gap-8">
-              <li><Link href="#hero" className="menuLink">Home</Link></li>
-              <li><Link href="#projects" className="menuLink">Projects</Link></li>
-              <li><Link href="#skills" className="menuLink">Skills</Link></li>
-              <li><Link href="#testimonials" className="menuLink">Testimonials</Link></li>
+              <li><Link href="/blog" className="menuLink">Blog</Link></li>
+              <li><Link href="/#projects" className="menuLink">Projects</Link></li>
+              <li><Link href="/#testimonials" className="menuLink">Testimonials</Link></li>
             </ul>
             <DarkModeToggle />
             <Link 
@@ -61,10 +60,10 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="flex flex-col gap-4 items-end md:hidden bg-charcoalLight rounded-lg pt-4">
             <ul className="flex flex-col gap-4 text-right">
-              <li><Link href="#hero" onClick={toggleMenu} className="menuLink">Home</Link></li>
-              <li><Link href="#projects" onClick={toggleMenu} className="menuLink">Projects</Link></li>
-              <li><Link href="#skills" onClick={toggleMenu} className="menuLink">Skills</Link></li>
-              <li><Link href="#testimonials" onClick={toggleMenu} className="menuLink">Testimonials</Link></li>
+              <li><Link href="/#hero" onClick={toggleMenu} className="menuLink">Home</Link></li>
+              <li><Link href="/#projects" onClick={toggleMenu} className="menuLink">Projects</Link></li>
+              <li><Link href="/#skills" onClick={toggleMenu} className="menuLink">Skills</Link></li>
+              <li><Link href="/#testimonials" onClick={toggleMenu} className="menuLink">Testimonials</Link></li>
             </ul>
             <div className="flex gap-2 items-center">
               <DarkModeToggle padding={"p-0"}/>

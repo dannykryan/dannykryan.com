@@ -91,7 +91,6 @@ export default async function BlogPostPage(
                     <div className="metadata flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300 mb-6">
                         <span>Category: {post.category}</span>
                         <span>Published: {new Date(post.publishDate).toLocaleDateString()}</span>
-                        <span>Tags: {post.tags.join(', ')}</span>
                     </div>
                 </header>
 

@@ -42,7 +42,7 @@ const Hero = () => {
               Hello, I&apos;m Danny!
             </p>
             <p className="mt-4 mb-2">
-              I&apos;m a developer with experience building sites and applications in WordPress, React, Tailwind CSS, and API integrations for clients from a variety of different sectors.
+              I&apos;m a full-stack developer building websites and web applications using WordPress, React, Tailwind CSS, TypeScript, and a variety of APIs. I work with clients across multiple sectors to deliver custom solutions that integrate design, functionality, and data.
             </p>
             <p className="mb-6">I&apos;m always working on something new so please check out my code at <a href="http://www.github.com/dannykryan" className="underline hover:text-orange dark:hover:text-green transition-colors duration-200">Github</a>.</p>
             

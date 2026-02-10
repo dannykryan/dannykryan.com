@@ -86,7 +86,7 @@ export default async function BlogPage() {
             <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
             <p className="text-sm text-gray-600 mb-1">Category: {post.category}</p>
             <p className="text-sm text-gray-600 mb-2">Published: {new Date(post.publishDate).toLocaleDateString()}</p>
-            <p className="text-sm mb-4">Tags: {post.tags.join(', ')}</p>
+            {/* <p className="text-sm mb-4">Tags: {post.tags.join(', ')}</p> */}
             {post.featuredImage && (
               <div className="relative w-full h-[300px] mb-4">
                 <Image
