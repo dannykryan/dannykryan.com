@@ -6,8 +6,8 @@ import { useTheme } from './ThemeProvider'
 const Hero = () => {
   const { isDarkMode } = useTheme();
   return (
-    <div className="pt-12 mt-[88px] lg:mt-[110px] lg:pt-0 pb-16 lg:pb-24">
-      <div id="hero" className="grid lg:grid-cols-2 gap-8 lg:gap-4 lg:h-[calc(100vh-400px)] display:flex flex-direction:justify-content lg:py-4rem">
+    <div className="pt-12 mt-[88px] pb-16 lg:pb-24"> {/* Fixed: consistent bottom spacing */}
+      <div id="hero" className="grid lg:grid-cols-2 gap-8 lg:gap-4 lg:min-h-[calc(100vh-400px)]"> {/* Changed to min-height to prevent overflow */}
         <div className="relative w-full h-[300px] md:h-[400px] my-auto rounded-3xl overflow-hidden">
           <div className="relative w-full h-full">
             <Image
