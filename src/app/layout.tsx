@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.dannykryan.com'),
   title: `Danny Ryan | Web Developer`,
   description: 'A website for web developer, Danny Ryan.',
+  icons: {
+    icon: '/public/danny-icon.png',
+  },
   openGraph: {
     title: 'Danny Ryan | Web Developer',
     description: 'Portfolio website for web developer Danny Ryan',
