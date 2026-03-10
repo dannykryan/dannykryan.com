@@ -52,7 +52,6 @@ button.navbar-button {
     transition-colors duration-300 relative;
 }
 
-/* Swiper Gallery Styling */
 .swiper-pagination-bullet {
     @apply bg-gray-600 dark:bg-gray-600;
 }
